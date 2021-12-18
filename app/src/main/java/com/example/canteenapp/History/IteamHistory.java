@@ -53,14 +53,11 @@ public class IteamHistory extends AppCompatActivity {
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         recyclerViewhistory.setLayoutManager(layoutManager);
-        resethistory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                databaseReference.removeValue();
-                databaseReference2.removeValue();
-               netincome=0;
-               netincomee.setText(String.valueOf(netincome));
-            }
+        resethistory.setOnClickListener(view -> {
+            databaseReference.removeValue();
+            databaseReference2.removeValue();
+           netincome=0;
+           netincomee.setText(String.valueOf(netincome));
         });
         databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

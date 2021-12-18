@@ -1,6 +1,9 @@
 package com.example.canteenapp.ui.dashboard;
 
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.example.canteenapp.CanteenUtil;
+import com.example.canteenapp.Util.CanteenUtil;
 import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -258,10 +261,17 @@ public class DashboardFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        CanteenUtil canteenUtil = new CanteenUtil();
-        if(canteenUtil.isInternetAvailable()){
+        if(!isInternetAvailable()){
             startActivity(new Intent(getContext(), NoInternet.class));
         }
     }
-
+    public boolean isInternetAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            return  true;
+        } else {
+            return false;
+        }
+    }
 }

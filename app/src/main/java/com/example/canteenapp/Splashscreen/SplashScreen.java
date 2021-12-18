@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.example.canteenapp.ButtomNavgation;
 import com.example.canteenapp.MainActivity;
 import com.example.canteenapp.R;
-import com.example.canteenapp.ui.home.HomeFragment;
 
 public class SplashScreen extends AppCompatActivity {
 

@@ -3,11 +3,17 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_adminpanelgdfg.xml" value="0.1" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_buttom_navgation.xml" value="0.20625" />
         <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_nointernet.xml" value="0.17300724637681159" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/admin_panel.xml" value="0.1" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/confromationscreen.xml" value="0.1" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/fragment_user.xml" value="0.20625" />
       </map>
     </option>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_15" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/build/classes" />
   </component>
   <component name="ProjectType">

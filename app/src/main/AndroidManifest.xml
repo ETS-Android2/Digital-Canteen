@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.canteenapp">
+    package="com.example.canteenapp" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -12,8 +12,8 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".NoInternet"></activity>
+        android:theme="@style/AppTheme" >
+        <activity android:name=".NoInternet" />
         <activity
             android:name=".History.IteamHistory"
             android:hardwareAccelerated="true" />
@@ -27,12 +27,16 @@
             android:hardwareAccelerated="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
         <activity
-            android:name=".ButtomNavgation"
+            android:name=".AdminPanel"
+            android:hardwareAccelerated="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" />
+        <activity
+            android:name=".BottomNavigation"
             android:hardwareAccelerated="true"
             android:label="@string/title_activity_buttom_navgation" />
         <activity
             android:name=".Splashscreen.SplashScreen"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

@@ -33,11 +33,11 @@
                 android:text="Upload a Picture"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"/>
+
             <ImageView
                 android:id="@+id/picture"
                 android:layout_width="150dp"
-                android:layout_height="150dp">
-            </ImageView>
+                android:layout_height="150dp"></ImageView>
 
             <ImageView
                 android:layout_marginLeft="100dp"

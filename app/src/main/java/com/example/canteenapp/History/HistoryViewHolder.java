@@ -31,11 +31,5 @@ public class HistoryViewHolder extends RecyclerView.ViewHolder {
         totalhistory = view.findViewById(R.id.totalprizehsiory);
         comment= view.findViewById(R.id.comment);
         cardviewfororderlist = view.findViewById(R.id.cardviewfororderlisthistory);
-
-
-
-
-
-
     }
 }

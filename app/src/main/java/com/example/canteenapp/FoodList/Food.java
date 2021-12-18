@@ -73,34 +73,26 @@ public class Food extends AppCompatActivity {
 
             }
         });
-                fooddone.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hiddenrelative.setVisibility(View.GONE);
-                foodname = fodname.getText().toString();
-                foodprize = foodpz.getText().toString();
-                foodpic = Foodpic.getText().toString();
-                if (foodname.equals("")|foodprize.equals("")|foodpic.equals("")) {
-                   Toast.makeText(getApplicationContext(),"All field required!",Toast.LENGTH_LONG).show();
-                }
-                else {
-                    databaseReference.child(String.valueOf(maxid+1)).child("foodname").setValue(foodname);
-                    databaseReference.child(String.valueOf(maxid+1)).child("foodprize").setValue(foodprize);
-                    databaseReference.child(String.valueOf(maxid+1)).child("foodpicture").setValue(foodpic);
-                    databaseReference.child(String.valueOf(maxid+1)).child("foodid").setValue(String.valueOf(maxid+1));
-                    Toast.makeText(getApplicationContext(),"FOOD ADDED",Toast.LENGTH_LONG).show();
-                }
-                fodname.setText("");
-                foodpz.setText("");
-                Foodpic.setText("");
-            }
-        });
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                hiddenrelative.setVisibility(View.VISIBLE);
-            }
-        });
+                fooddone.setOnClickListener(view -> {
+                    hiddenrelative.setVisibility(View.GONE);
+                    foodname = fodname.getText().toString();
+                    foodprize = foodpz.getText().toString();
+                    foodpic = Foodpic.getText().toString();
+                    if (foodname.equals("")|foodprize.equals("")|foodpic.equals("")) {
+                       Toast.makeText(getApplicationContext(),"All field required!",Toast.LENGTH_LONG).show();
+                    }
+                    else {
+                        databaseReference.child(String.valueOf(maxid+1)).child("foodname").setValue(foodname);
+                        databaseReference.child(String.valueOf(maxid+1)).child("foodprize").setValue(foodprize);
+                        databaseReference.child(String.valueOf(maxid+1)).child("foodpicture").setValue(foodpic);
+                        databaseReference.child(String.valueOf(maxid+1)).child("foodid").setValue(String.valueOf(maxid+1));
+                        Toast.makeText(getApplicationContext(),"FOOD ADDED",Toast.LENGTH_LONG).show();
+                    }
+                    fodname.setText("");
+                    foodpz.setText("");
+                    Foodpic.setText("");
+                });
+        button.setOnClickListener(view -> hiddenrelative.setVisibility(View.VISIBLE));
     }
 
     @Override

@@ -18,7 +18,7 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.canteenapp.CanteenUtil;
+import com.example.canteenapp.Util.CanteenUtil;
 import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -261,8 +261,7 @@ public class HomeFragment extends Fragment {
     public void onStart() {
 
         super.onStart();
-        CanteenUtil canteenUtil=new CanteenUtil();
-        if(canteenUtil.isInternetAvailable()){
+        if(!isInternetAvailable()){
             Intent intent = new Intent(getContext(), NoInternet.class);
                 startActivity(intent);
         }
@@ -291,10 +290,13 @@ public class HomeFragment extends Fragment {
         recyclerView.setItemViewCacheSize(900);
         recyclerView.setAdapter(firebaseRecyclerAdapter);
 
-
-
-
-
     }
-
+    public boolean isInternetAvailable() {
+        ConnectivityManager connectivityManager = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
+            return  true;
+        } else {
+            return false;
+        }
+    }
 }
