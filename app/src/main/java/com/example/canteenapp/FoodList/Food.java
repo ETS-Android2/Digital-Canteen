@@ -82,10 +82,10 @@ public class Food extends AppCompatActivity {
                        Toast.makeText(getApplicationContext(),"All field required!",Toast.LENGTH_LONG).show();
                     }
                     else {
-                        databaseReference.child(String.valueOf(maxid+1)).child("foodname").setValue(foodname);
-                        databaseReference.child(String.valueOf(maxid+1)).child("foodprize").setValue(foodprize);
-                        databaseReference.child(String.valueOf(maxid+1)).child("foodpicture").setValue(foodpic);
-                        databaseReference.child(String.valueOf(maxid+1)).child("foodid").setValue(String.valueOf(maxid+1));
+                        databaseReference.child(String.valueOf(maxid+1)).child("foodName").setValue(foodname);
+                        databaseReference.child(String.valueOf(maxid+1)).child("foodPrize").setValue(foodprize);
+                        databaseReference.child(String.valueOf(maxid+1)).child("foodPicture").setValue(foodpic);
+                        databaseReference.child(String.valueOf(maxid+1)).child("foodId").setValue(String.valueOf(maxid+1));
                         Toast.makeText(getApplicationContext(),"FOOD ADDED",Toast.LENGTH_LONG).show();
                     }
                     fodname.setText("");
@@ -104,15 +104,10 @@ public class Food extends AppCompatActivity {
                 FirebaseRecyclerAdapter<FoodModel, FoodVIewHOlder>(options) {
                     @Override
                     protected void onBindViewHolder(@NonNull FoodVIewHOlder foodVIewHOlder, final int i, @NonNull final FoodModel foodModel) {
-                        foodVIewHOlder.foodNametemp.setText(foodModel.getFoodname());
-                        foodVIewHOlder.foodPrizetemp.setText(foodModel.getFoodprize());
-                        Picasso.get().load(foodModel.getFoodpicture()).into(foodVIewHOlder.foodPicturetemp);
-                        foodVIewHOlder.remove.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                databaseReference.child(foodModel.getFoodid()).removeValue();
-                            }
-                        });
+                        foodVIewHOlder.foodNametemp.setText(foodModel.getFoodName());
+                        foodVIewHOlder.foodPrizetemp.setText(foodModel.getFoodPrize());
+                        Picasso.get().load(foodModel.getFoodPicture()).into(foodVIewHOlder.foodPicturetemp);
+                        foodVIewHOlder.remove.setOnClickListener(view -> databaseReference.child(foodModel.getFoodId()).removeValue());
                     }
                     @NonNull
                     @Override

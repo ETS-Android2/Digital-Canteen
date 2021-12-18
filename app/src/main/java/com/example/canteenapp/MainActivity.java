@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
     firebaseAuth = FirebaseAuth.getInstance();
     final TextView passwordToggler = findViewById(R.id.passwordToogle);
     passwordToggler.setText("SHOW");
-    //THIS IS FOR PASSWORD SHOW METHORD
+    //THIS IS FOR PASSWORD SHOW METHOD
     passwordToggler.setOnClickListener(view -> {
       String state = passwordToggler.getText().toString();
       if (state.equals("SHOW")) {
@@ -74,21 +74,18 @@ public class MainActivity extends AppCompatActivity {
       } else {
         progressBar.setVisibility(View.VISIBLE);
         firebaseAuth.signInWithEmailAndPassword(Email, Password)
-                .addOnCompleteListener(MainActivity.this, new OnCompleteListener<AuthResult>() {
-                  @Override
-                  public void onComplete(@NonNull Task<AuthResult> task) {
-                    progressBar.setVisibility(View.GONE);
-                    if (task.isSuccessful()) {
-                      // Sign in success, update UI with the signed-in user's information
+                .addOnCompleteListener(MainActivity.this, task -> {
+                  progressBar.setVisibility(View.GONE);
+                  if (task.isSuccessful()) {
+                    // Sign in success, update UI with the signed-in user's information
 
-                      Intent intent = new Intent(getApplicationContext(), BottomNavigation.class);
-                      startActivity(intent);
+                    Intent intent = new Intent(getApplicationContext(), BottomNavigation.class);
+                    startActivity(intent);
 
-                    } else {
-                      // If sign in fails, display a message to the user.
-                      Toast.makeText(MainActivity.this, "Authentication failed.",
-                              Toast.LENGTH_SHORT).show();
-                    }
+                  } else {
+                    // If sign in fails, display a message to the user.
+                    Toast.makeText(MainActivity.this, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show();
                   }
                 });
       }
@@ -109,12 +106,8 @@ public class MainActivity extends AppCompatActivity {
   }
   public boolean isInternetAvailable() {
     ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-    if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-            connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-      return  true;
-    } else {
-      return false;
-    }
+    return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+            connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
   }
   @Override
   public void onBackPressed() {

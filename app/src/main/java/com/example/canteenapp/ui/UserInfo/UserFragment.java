@@ -77,27 +77,19 @@ private static  final int ImageBack = 1;
         storageReference = FirebaseStorage.getInstance().getReference().child(userID);
         logout = root.findViewById(R.id.logout);
         resetdata=root.findViewById(R.id.resetdata);
-        resetdata.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                databaseReference4.child(userID).removeValue();
-              usertotal.setText("0");
-            }
+        resetdata.setOnClickListener(v -> {
+            databaseReference4.child(userID).removeValue();
+          usertotal.setText("0");
         });
-        logout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                firebaseAuth.signOut();
-                Intent intent = new Intent(getActivity(),MainActivity.class);
-                startActivity(intent);
-            }
+        logout.setOnClickListener(view -> {
+            firebaseAuth.signOut();
+            Intent intent = new Intent(getActivity(),MainActivity.class);
+            startActivity(intent);
         });
         return root;
     }
     public void Uploaddata(View view)
     {
-
-
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
@@ -114,26 +106,14 @@ private static  final int ImageBack = 1;
                 progressBar.setVisibility(View.VISIBLE);
                 Uri ImageData = data.getData();
                     final StorageReference imagename = storageReference.child("image"+ImageData.getLastPathSegment());
-                    imagename.putFile(ImageData).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    imagename.putFile(ImageData).addOnSuccessListener(taskSnapshot -> imagename.getDownloadUrl().addOnSuccessListener(uri -> {
 
-                            imagename.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                                @Override
-                                public void onSuccess(Uri uri) {
-
-                                  String hashMap = String.valueOf(uri);
-                                    databaseReference.child("image").setValue(hashMap).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                        @Override
-                                        public void onSuccess(Void aVoid) {
-                                            Toast.makeText(getContext(),"ImageUploaded",Toast.LENGTH_LONG).show();
-                                            progressBar.setVisibility(View.GONE);
-                                        }
-                                    });
-                                }
-                            });
-                        }
-                    });
+                      String hashMap = String.valueOf(uri);
+                        databaseReference.child("image").setValue(hashMap).addOnSuccessListener(aVoid -> {
+                            Toast.makeText(getContext(),"ImageUploaded",Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
+                        });
+                    }));
             }
             }
     }
@@ -175,15 +155,7 @@ private static  final int ImageBack = 1;
                     public void onCancelled(@NonNull DatabaseError error) {
 
                     }
-                });picture.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Uploaddata(view);
-                    }
-                });
-
-
-
+                });picture.setOnClickListener(view -> Uploaddata(view));
 
             }
 
@@ -197,11 +169,9 @@ private static  final int ImageBack = 1;
     }
 
     public boolean isInternetAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            return  true;
-        } else {
-            return false;
-        }
+       ConnectivityManager connectivityManager = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+       return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+
     }
 }

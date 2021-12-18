@@ -67,44 +67,38 @@ public class Registration extends AppCompatActivity {
             progressBar.setVisibility(View.VISIBLE);
             if (Password.length()>=8){
                 firebaseAuth.createUserWithEmailAndPassword(Email, Password)
-                        .addOnCompleteListener(Registration.this, new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(Registration.this, "User Added Successfully",
-                                            Toast.LENGTH_SHORT).show();
-                                    // Sign in success, update UI with the signed-in user's information
+                        .addOnCompleteListener(Registration.this, task -> {
+                            progressBar.setVisibility(View.GONE);
+                            if (task.isSuccessful()) {
+                                Toast.makeText(Registration.this, "User Added Successfully",
+                                        Toast.LENGTH_SHORT).show();
+                                // Sign in success, update UI with the signed-in user's information
 
-                                    User user = new User(
-                                            Email,
-                                            Fullname,
-                                            Phone,
-                                            Password
+                                User user = new User(
+                                        Email,
+                                        Fullname,
+                                        Phone,
+                                        Password
 
-                                    );
-                                    FirebaseDatabase.getInstance().getReference("Users").
-                                            child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isSuccessful()){
+                                );
+                                FirebaseDatabase.getInstance().getReference("Users").
+                                        child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user).addOnCompleteListener(task1 -> {
+                                            if(task1.isSuccessful()){
                                                 Toast.makeText(Registration.this, "sucess",
                                                         Toast.LENGTH_SHORT).show();
                                             }
-                                        }
-                                    });
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
+                                        });
+                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
 
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Toast.makeText(Registration.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+                            } else {
+                                // If sign in fails, display a message to the user.
+                                Toast.makeText(Registration.this, "Authentication failed.",
+                                        Toast.LENGTH_SHORT).show();
 
-                                }
-
-                                // ...
                             }
+
+                            // ...
                         });
             }
             else {

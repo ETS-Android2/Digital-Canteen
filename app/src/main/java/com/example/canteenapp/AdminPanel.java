@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.canteenapp.FoodList.Food;
-import com.example.canteenapp.History.IteamHistory;
+import com.example.canteenapp.History.itemHistory;
 import com.example.canteenapp.OrderList.OrderIteam;
 import com.example.canteenapp.Registration.Registration;
 
@@ -35,7 +35,7 @@ public class AdminPanel extends AppCompatActivity {
       startActivity(intent);
     });
     history.setOnClickListener((v)->{
-      Intent intent = new Intent(getApplicationContext(), IteamHistory.class);
+      Intent intent = new Intent(getApplicationContext(), itemHistory.class);
       startActivity(intent);
     });
   }

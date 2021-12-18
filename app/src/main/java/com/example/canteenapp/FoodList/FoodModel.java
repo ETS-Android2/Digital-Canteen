@@ -1,40 +1,44 @@
 package com.example.canteenapp.FoodList;
 
+
 public class FoodModel {
-    String foodname,foodpicture,foodprize,foodid;
-    void FoodModel(){
+    private String foodName;
+    private String foodPicture;
+    private String foodPrize;
+    private String foodId;
 
+    public FoodModel() {
     }
 
-    public String getFoodid() {
-        return foodid;
+    public String getFoodName() {
+        return foodName;
     }
 
-    public void setFoodid(String foodid) {
-        this.foodid = foodid;
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
     }
 
-    public String getFoodname() {
-        return foodname;
+    public String getFoodPicture() {
+        return foodPicture;
     }
 
-    public void setFoodname(String foodname) {
-        this.foodname = foodname;
+    public void setFoodPicture(String foodPicture) {
+        this.foodPicture = foodPicture;
     }
 
-    public String getFoodpicture() {
-        return foodpicture;
+    public String getFoodPrize() {
+        return foodPrize;
     }
 
-    public void setFoodpicture(String foodpicture) {
-        this.foodpicture = foodpicture;
+    public void setFoodPrize(String foodPrize) {
+        this.foodPrize = foodPrize;
     }
 
-    public String getFoodprize() {
-        return foodprize;
+    public String getFoodId() {
+        return foodId;
     }
 
-    public void setFoodprize(String foodprize) {
-        this.foodprize = foodprize;
+    public void setFoodId(String foodId) {
+        this.foodId = foodId;
     }
 }

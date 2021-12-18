@@ -22,7 +22,7 @@ public class ViewHolderHome extends RecyclerView.ViewHolder {
     TextView foodName,foodPrize,zerovalue;
     ImageView plus,minus;
     ImageView foodPicture;
-    int zero,id;
+    int zero;
     FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
     FirebaseUser user;
@@ -43,7 +43,7 @@ public class ViewHolderHome extends RecyclerView.ViewHolder {
         firebaseDatabase = FirebaseDatabase.getInstance();
         user = firebaseAuth.getCurrentUser();
         userID = user.getUid();
-        databaseReference = firebaseDatabase.getReference().child("Users").child(userID).child("OrderdIteam");
+        databaseReference = firebaseDatabase.getReference().child("Users").child(userID).child("OrderedItem");
         //ON CLICLING MINUS IMAGEVIEW
         minus.setOnClickListener(view -> {
             if (zero<= 0){

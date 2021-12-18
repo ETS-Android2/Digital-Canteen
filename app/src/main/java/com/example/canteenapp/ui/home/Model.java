@@ -1,33 +1,34 @@
 package com.example.canteenapp.ui.home;
 
 public class Model {
-    String foodname,foodpicture,foodprize;
+    String foodName, foodPicture, foodPrize;
+
     void Model(){
 
     }
 
-    public String getFoodname() {
-        return foodname;
+    public String getFoodName() {
+        return foodName;
     }
 
-    public void setFoodname(String foodname) {
-        this.foodname = foodname;
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
     }
 
-    public String getFoodpicture() {
-        return foodpicture;
+    public String getFoodPicture() {
+        return foodPicture;
     }
 
-    public void setFoodpicture(String foodpicture) {
-        this.foodpicture = foodpicture;
+    public void setFoodPicture(String foodPicture) {
+        this.foodPicture = foodPicture;
     }
 
-    public String getFoodprize() {
-        return foodprize;
+    public String getFoodPrize() {
+        return foodPrize;
     }
 
-    public void setFoodprize(String foodprize) {
-        this.foodprize = foodprize;
+    public void setFoodPrize(String foodPrize) {
+        this.foodPrize = foodPrize;
     }
 
 

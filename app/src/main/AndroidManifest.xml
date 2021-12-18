@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme" >
         <activity android:name=".NoInternet" />
         <activity
-            android:name=".History.IteamHistory"
+            android:name=".History.itemHistory"
             android:hardwareAccelerated="true" />
         <activity
             android:name=".FoodList.Food"

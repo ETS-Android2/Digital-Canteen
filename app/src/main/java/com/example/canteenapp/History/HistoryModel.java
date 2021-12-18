@@ -1,9 +1,15 @@
 package com.example.canteenapp.History;
 
 public class HistoryModel {
-    String foodname,foodprize,foodcount,total,username,comment,color;
-    void HistoryModel(){
+   private String foodName;
+    private String foodPrize;
+    private String foodCount;
+    private String total;
+    private String userName;
+    private String comment;
+    private String color;
 
+    void HistoryModel(){
     }
 
     public String getColor() {
@@ -14,28 +20,28 @@ public class HistoryModel {
         this.color = color;
     }
 
-    public String getFoodname() {
-        return foodname;
+    public String getFoodName() {
+        return foodName;
     }
 
-    public void setFoodname(String foodname) {
-        this.foodname = foodname;
+    public void setFoodName(String foodName) {
+        this.foodName = foodName;
     }
 
-    public String getFoodprize() {
-        return foodprize;
+    public String getFoodPrize() {
+        return foodPrize;
     }
 
-    public void setFoodprize(String foodprize) {
-        this.foodprize = foodprize;
+    public void setFoodPrize(String foodPrize) {
+        this.foodPrize = foodPrize;
     }
 
-    public String getFoodcount() {
-        return foodcount;
+    public String getFoodCount() {
+        return foodCount;
     }
 
-    public void setFoodcount(String foodcount) {
-        this.foodcount = foodcount;
+    public void setFoodCount(String foodCount) {
+        this.foodCount = foodCount;
     }
 
     public String getTotal() {
@@ -46,12 +52,12 @@ public class HistoryModel {
         this.total = total;
     }
 
-    public String getUsername() {
-        return username;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getComment() {

@@ -18,7 +18,6 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.canteenapp.Util.CanteenUtil;
 import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -67,8 +66,8 @@ public class HomeFragment extends Fragment {
         user = firebaseAuth.getCurrentUser();
         userID = user.getUid();
         progressBar = root.findViewById(R.id.progressBar);
-        databaseReference2 = firebaseDatabase2.getReference().child("Users").child(userID).child("OrderdIteam");
-        databaseReference3 = firebaseDatabase2.getReference("Confirmorder");
+        databaseReference2 = firebaseDatabase2.getReference().child("Users").child(userID).child("OrderedItem");
+        databaseReference3 = firebaseDatabase2.getReference("Confirmed");
         databaseReference4 = firebaseDatabase.getReference("Users").child(userID).child("name");
         databaseReference5 = firebaseDatabase.getReference("Users").child(userID);
         databaseReference3.addValueEventListener(new ValueEventListener() {
@@ -82,9 +81,7 @@ public class HomeFragment extends Fragment {
                             }
                             maxid=counteroflineno;
                         }
-
                 }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
             }
@@ -121,15 +118,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 try {
-
-
                     final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext(), R.style.BottomSheetDilougeTheme);
-                    View buttomsheetview = LayoutInflater.from(getContext()).inflate(R.layout.confromationscreen, (RelativeLayout) root.findViewById(R.id.rlayout));
-                    TextView namefood = buttomsheetview.findViewById(R.id.name);
-                    TextView countfood = buttomsheetview.findViewById(R.id.count);
-                    TextView prizefood = buttomsheetview.findViewById(R.id.prize);
-                    final TextView totalfood = buttomsheetview.findViewById(R.id.total);
-                    buttomsheetview.findViewById(R.id.confrom).setOnClickListener(new View.OnClickListener() {
+                    View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.confromationscreen, (RelativeLayout) root.findViewById(R.id.rlayout));
+                    TextView nameFood = bottomSheetView.findViewById(R.id.name);
+                    TextView countFood = bottomSheetView.findViewById(R.id.count);
+                    TextView prizeFood = bottomSheetView.findViewById(R.id.prize);
+                    final TextView totalFood = bottomSheetView.findViewById(R.id.total);
+                    bottomSheetView.findViewById(R.id.confrom).setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
 
@@ -138,12 +133,12 @@ public class HomeFragment extends Fragment {
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     if (snapshot.getValue() != null) {
 
-                                        value.put("foodname", foodname);
-                                        value.put("foodprize", foodprize);
-                                        value.put("foodcount", foodcount);
+                                        value.put("foodName", foodname);
+                                        value.put("foodPrize", foodprize);
+                                        value.put("foodCount", foodcount);
                                         value.put("total", String.valueOf(foodtotal));
                                         value.put("name", username);
-                                        value.put("userid", String.valueOf(maxid + 1));
+                                        value.put("userId", String.valueOf(maxid + 1));
                                         value.put("uniqueID", String.valueOf(userID));
                                     }
                                     else{
@@ -187,16 +182,14 @@ public class HomeFragment extends Fragment {
                             });
 
                             bottomSheetDialog.dismiss();
-
                             databaseReference2.removeValue();
 
                         }
 
                     });
-                    String fname = "";
-                    String fcount = "";
-                    String fprize = "";
-                    int ashishpr=0;
+                    String fName = "";
+                    String fCount = "";
+                    String fPrize = "";
                     int total = 0;
                     a = content;
                     a = a.replaceAll("=", " ,");
@@ -211,55 +204,42 @@ public class HomeFragment extends Fragment {
 
 
                     for (int start = 1; start <= s; start++) {
-                        fname = fname + "\n" + afinal[name];
-                        fcount = fcount + "\n" + afinal[count];
+                        fName = fName + "\n" + afinal[name];
+                        fCount = fCount + "\n" + afinal[count];
                         total = total + Integer.parseInt(afinal[prize]) * Integer.parseInt(afinal[count]);
-                        fprize = fprize + "\n" + Integer.parseInt(afinal[prize]) * Integer.parseInt(afinal[count]);
+                        fPrize = fPrize + "\n" + Integer.parseInt(afinal[prize]) * Integer.parseInt(afinal[count]);
                         name = name + 3;
                         count = count + 3;
                         prize = prize + 3;
 
-
                     }
 
-
                     if (total!=0){
-
-
-                        foodname = fname;
-                        foodname = fname;
-                        foodprize = fprize;
-                        foodcount = fcount;
+                        foodname = fName;
+                        foodname = fName;
+                        foodprize = fPrize;
+                        foodcount = fCount;
                         foodtotal = total;
-                    namefood.setText(fname);
-                    countfood.setText(fcount);
-                    prizefood.setText(fprize);
-                    totalfood.setText(String.valueOf(total));
+                    nameFood.setText(fName);
+                    countFood.setText(fCount);
+                    prizeFood.setText(fPrize);
+                    totalFood.setText(String.valueOf(total));
 
-                    bottomSheetDialog.setContentView(buttomsheetview);
+                    bottomSheetDialog.setContentView(bottomSheetView);
                     bottomSheetDialog.show();}
                     else {
                         Toast.makeText(getContext(),"Please order something",Toast.LENGTH_SHORT).show();
-
                     }
                 }
                 catch (Exception e){
-
                 }
             }
-
         });
-
         return root;
     }
 
-
-
-
-
     @Override
     public void onStart() {
-
         super.onStart();
         if(!isInternetAvailable()){
             Intent intent = new Intent(getContext(), NoInternet.class);
@@ -272,9 +252,9 @@ public class HomeFragment extends Fragment {
                     @Override
                     protected void onBindViewHolder(@NonNull final ViewHolderHome viewHolderHome, final int i, @NonNull final Model model) {
 
-                    viewHolderHome.foodName.setText(model.getFoodname());
-                    viewHolderHome.foodPrize.setText(model.getFoodprize());
-                    Picasso.get().load(model.getFoodpicture()).into(viewHolderHome.foodPicture);
+                    viewHolderHome.foodName.setText(model.getFoodName());
+                    viewHolderHome.foodPrize.setText(model.getFoodPrize());
+                    Picasso.get().load(model.getFoodPicture()).into(viewHolderHome.foodPicture);
                     progressBar.setVisibility(View.GONE);
                     }
                     @NonNull
@@ -289,14 +269,10 @@ public class HomeFragment extends Fragment {
         firebaseRecyclerAdapter.notifyDataSetChanged();
         recyclerView.setItemViewCacheSize(900);
         recyclerView.setAdapter(firebaseRecyclerAdapter);
-
     }
     public boolean isInternetAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            return  true;
-        } else {
-            return false;
-        }
+        ConnectivityManager connectivityManager = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return  (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED);
     }
 }
