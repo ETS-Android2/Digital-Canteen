@@ -1,9 +1,6 @@
 package com.example.canteenapp.ui.UserInfo;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,11 +18,10 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.example.canteenapp.ButtomNavgation;
+import com.example.canteenapp.CanteenUtil;
 import com.example.canteenapp.MainActivity;
-import com.example.canteenapp.Nointernet;
+import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
-import com.example.canteenapp.ui.home.HomeFragment;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,11 +34,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
-
-import java.util.HashMap;
-import java.util.concurrent.ScheduledExecutorService;
-
-import javax.xml.transform.Result;
 
 public class UserFragment extends Fragment {
 
@@ -145,28 +136,13 @@ private static  final int ImageBack = 1;
     }
 
 
-    public boolean isInternetAvailable() {
-        boolean connected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            connected = true;
-        }
-        else
-        {
-            connected = false;
-        }
-        return connected;
-
-    }
 
     @Override
     public void onStart() {
         super.onStart();
-        if(isInternetAvailable()==false){
-            Intent intent = new Intent(getContext(), Nointernet.class);
-            startActivity(intent);
+        CanteenUtil canteenUtil=new CanteenUtil();
+        if(canteenUtil.isInternetAvailable()){
+            startActivity( new Intent(getContext(), NoInternet.class));
         }
 
         databaseReference.addValueEventListener(new ValueEventListener() {

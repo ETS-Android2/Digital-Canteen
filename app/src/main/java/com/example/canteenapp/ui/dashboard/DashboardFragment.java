@@ -1,33 +1,23 @@
 package com.example.canteenapp.ui.dashboard;
 
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.canteenapp.Nointernet;
+import com.example.canteenapp.CanteenUtil;
+import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -94,8 +84,7 @@ public class DashboardFragment extends Fragment {
 
                     System.out.println(a);
                     if (aa.length != 1) {
-                        for (int j = 0; j < aa.length; j++) {// added this for loop, think about logic why do we have to add
-                            // this to make it work
+                        for (int j = 0; j < aa.length; j++) {
                             for (int i = 0; i < aa.length; i++) {
                                 int num1 = Integer.parseInt(aa[j].substring(aa[j].indexOf("=") + 1));
                                 int num2 = Integer.parseInt(aa[i].substring(aa[i].indexOf("=") + 1));
@@ -105,10 +94,7 @@ public class DashboardFragment extends Fragment {
                                     aa[i] = aa[j];
                                     aa[j] = temp;
                                 }
-
                             }
-
-
                         }
                         int count = 0;
 
@@ -136,7 +122,6 @@ public class DashboardFragment extends Fragment {
         pay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 String url = "https://esewa.com.np/#/home";
 
                 Intent i = new Intent(Intent.ACTION_VIEW);
@@ -217,10 +202,8 @@ public class DashboardFragment extends Fragment {
                                 databaseReferenceuserid.removeEventListener(this);
 
                             } else {
-                                System.out.println("ID1="+userID);
                                 dashcard.setVisibility(View.GONE);
                                 dashprogess.setVisibility(View.GONE);
-
 
 
                             }
@@ -271,28 +254,13 @@ public class DashboardFragment extends Fragment {
         return root;
     }
 
-    public boolean isInternetAvailable() {
-        boolean connected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            connected = true;
-        }
-        else
-        {
-            connected = false;
-        }
-        return connected;
-
-    }
 
     @Override
     public void onStart() {
         super.onStart();
-        if(isInternetAvailable()==false){
-            Intent intent = new Intent(getContext(), Nointernet.class);
-            startActivity(intent);
+        CanteenUtil canteenUtil = new CanteenUtil();
+        if(canteenUtil.isInternetAvailable()){
+            startActivity(new Intent(getContext(), NoInternet.class));
         }
     }
 

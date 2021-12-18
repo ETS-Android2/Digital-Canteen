@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,7 +18,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.canteenapp.Nointernet;
+import com.example.canteenapp.CanteenUtil;
+import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -34,7 +34,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.net.InetAddress;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -255,21 +254,6 @@ public class HomeFragment extends Fragment {
     }
 
 
-    public boolean isInternetAvailable() {
-        boolean connected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager)this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-        if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            connected = true;
-        }
-        else
-        {
-            connected = false;
-        }
-        return connected;
-
-    }
 
 
 
@@ -277,8 +261,9 @@ public class HomeFragment extends Fragment {
     public void onStart() {
 
         super.onStart();
-        if(isInternetAvailable()==false){
-            Intent intent = new Intent(getContext(), Nointernet.class);
+        CanteenUtil canteenUtil=new CanteenUtil();
+        if(canteenUtil.isInternetAvailable()){
+            Intent intent = new Intent(getContext(), NoInternet.class);
                 startActivity(intent);
         }
         databaseReference2.removeValue();
