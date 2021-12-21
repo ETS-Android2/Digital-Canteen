@@ -42,8 +42,8 @@ public class DashboardFragment extends Fragment {
   List<String> userIdList = new ArrayList();
   String userID, id, hitText = "";
   String username, foodname, foodcount, foodprize, total;
-  Button cancle, pay;
-  TextView dashname, dashquantity, dashprize, dashtotal, tokenuser, hititems, orderredytext, turn;
+  Button cancel, pay;
+  TextView dashName, dashQuantity, dashPrize, dashTotal, tokenuser, hititems, orderredytext, turn;
   CardView dashcard;
   LinearLayout templineratlayout;
   ProgressBar dashprogess;
@@ -63,12 +63,12 @@ public class DashboardFragment extends Fragment {
     turn = root.findViewById(R.id.turn);
     templineratlayout = root.findViewById(R.id.templineratlayout);
     templineratlayout.setVisibility(View.GONE);
-    dashname = root.findViewById(R.id.dashfoodname);
-    dashquantity = root.findViewById(R.id.dashquantity);
+    dashName = root.findViewById(R.id.dashfoodname);
+    dashQuantity = root.findViewById(R.id.dashquantity);
     orderredytext = root.findViewById(R.id.orderredytext);
-    dashprize = root.findViewById(R.id.dashprize);
-    dashtotal = root.findViewById(R.id.dashtotal);
-    cancle = root.findViewById(R.id.cancle);
+    dashPrize = root.findViewById(R.id.dashprize);
+    dashTotal = root.findViewById(R.id.dashtotal);
+    cancel = root.findViewById(R.id.cancle);
     dashcard = root.findViewById(R.id.dashcard);
     tokenuser = root.findViewById(R.id.tokenuser);
     firebaseDatabase = FirebaseDatabase.getInstance();
@@ -149,10 +149,10 @@ public class DashboardFragment extends Fragment {
               if (snapshot.getValue() != null) {
                 dashprogess.setVisibility(View.GONE);
                 dashcard.setVisibility(View.VISIBLE);
-                dashname.setText(snapshot.child("foodName").getValue().toString());
-                dashquantity.setText(snapshot.child("foodCount").getValue().toString());
-                dashprize.setText(snapshot.child("foodPrize").getValue().toString());
-                dashtotal.setText(snapshot.child("total").getValue().toString());
+                dashName.setText(snapshot.child("foodName").getValue().toString());
+                dashQuantity.setText(snapshot.child("foodCount").getValue().toString());
+                dashPrize.setText(snapshot.child("foodPrize").getValue().toString());
+                dashTotal.setText(snapshot.child("total").getValue().toString());
                 tokenuser.setText(snapshot.child("userId").getValue().toString());
                 if (snapshot.child("notificationid").exists()) {
                   orderredytext.setText("Your order is Ready");
@@ -215,7 +215,7 @@ public class DashboardFragment extends Fragment {
     });
 
 
-    cancle.setOnClickListener(view -> {
+    cancel.setOnClickListener(view -> {
       databaseReferencehistory.child(String.valueOf(maxid + 1)).child("userName").setValue(username);
       databaseReferencehistory.child(String.valueOf(maxid + 1)).child("foodName").setValue(foodname);
       databaseReferencehistory.child(String.valueOf(maxid + 1)).child("foodCount").setValue(foodcount);
