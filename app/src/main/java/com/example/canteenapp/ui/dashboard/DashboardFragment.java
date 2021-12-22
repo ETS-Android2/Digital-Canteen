@@ -1,10 +1,16 @@
 package com.example.canteenapp.ui.dashboard;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +21,12 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
+import com.example.canteenapp.MainActivity;
 import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -160,6 +169,7 @@ public class DashboardFragment extends Fragment {
                 }
                 final int token = Integer.parseInt(snapshot.child("userId").getValue().toString());
                 databaseReference10.addValueEventListener(new ValueEventListener() {
+                  @RequiresApi(api = Build.VERSION_CODES.O)
                   @Override
                   public void onDataChange(@NonNull DataSnapshot snapshot) {
                     if (snapshot.exists()) {
@@ -175,7 +185,30 @@ public class DashboardFragment extends Fragment {
                       counteroflineno = counteroflineno - 1;
                       String turnText = "Your turn is after " + counteroflineno + " " + "People";
                       turn.setText(turnText);
+                      System.out.println(counteroflineno);
+                      ///CODE TO GIVE NOTIFICATION
+                      if(counteroflineno==0){
+                        Intent intent=new Intent(getContext(),DashboardFragment.class);
+                        String CHANNEL_ID="MYCHANNEL";
+                        NotificationChannel notificationChannel=new NotificationChannel(CHANNEL_ID,"name",NotificationManager.IMPORTANCE_LOW);
+                        PendingIntent pendingIntent=PendingIntent.getActivity(getContext(),1,intent,0);
+                        Notification notification=new Notification.Builder(getContext(),CHANNEL_ID)
+                                .setContentText("Hello")
+                                .setContentTitle("how are you")
+                                .setContentIntent(pendingIntent)
+                                .addAction(android.R.drawable.sym_action_chat,"Title",pendingIntent)
+                                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+                                .setChannelId(CHANNEL_ID)
+                                .setSmallIcon(android.R.drawable.sym_action_chat)
+                                .build();
 
+                        NotificationManager notificationManager=(NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                        notificationManager.createNotificationChannel(notificationChannel);
+
+                        notificationManager.notify(1,notification);
+
+                        System.out.println("here");
+                      }
                     }
                   }
 
