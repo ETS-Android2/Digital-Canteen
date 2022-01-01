@@ -30,6 +30,4 @@ public class Model {
     public void setFoodPrize(String foodPrize) {
         this.foodPrize = foodPrize;
     }
-
-
 }

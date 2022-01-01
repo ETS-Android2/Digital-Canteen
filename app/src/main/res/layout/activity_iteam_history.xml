@@ -34,15 +34,6 @@
             android:textSize="30dp"></TextView>
     </LinearLayout>
 
-    <Button
-        android:layout_marginTop="20dp"
-        android:layout_width="300dp"
-        android:layout_gravity="center"
-        android:layout_height="50dp"
-        android:background="@drawable/rounded_rectangele"
-        android:textColor="#ffff"
-        android:id="@+id/resethistory"
-        android:text="RESET DATA"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycleviewhistory"
         android:layout_width="match_parent"

@@ -1,11 +1,25 @@
 package com.example.canteenapp.Util;
 
-import android.content.Context;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
+import org.ocpsoft.prettytime.PrettyTime;
 
-import androidx.appcompat.app.AppCompatActivity;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
-public class CanteenUtil extends AppCompatActivity {
 
+public class CanteenUtil {
+
+
+  public static String ConvertMilliSecondsToFormattedDate(long milliSeconds) {
+    String dateFormat = "dd-MM-yyyy hh:mm";
+    SimpleDateFormat simpleDateFormat = new SimpleDateFormat(dateFormat);
+    Calendar calendar = Calendar.getInstance();
+    calendar.setTimeInMillis(milliSeconds);
+    return simpleDateFormat.format(calendar.getTime());
+  }
+
+  public static String ConvertMilliSecondsToPrettyTime(long milliSeconds) {
+    PrettyTime p = new PrettyTime();
+    return p.format(new Date(milliSeconds));
+  }
 }

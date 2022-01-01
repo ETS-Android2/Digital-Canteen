@@ -29,6 +29,8 @@ import androidx.fragment.app.Fragment;
 import com.example.canteenapp.MainActivity;
 import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
+import com.example.canteenapp.Util.CanteenUtil;
+import com.example.canteenapp.constant.FireBaseConstant;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -52,11 +54,11 @@ public class DashboardFragment extends Fragment {
   String userID, id, hitText = "";
   String username, foodname, foodcount, foodprize, total;
   Button cancel, pay;
-  TextView dashName, dashQuantity, dashPrize, dashTotal, tokenuser, hititems, orderredytext, turn;
+  TextView dashName, dashQuantity, dashPrize, dashTotal, tokenuser, hititems, orderredytext, turn, timeDash;
   CardView dashcard;
   LinearLayout templineratlayout;
   ProgressBar dashprogess;
-  long maxid = 0;
+  long maxid = 0, time;
 
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
@@ -77,13 +79,14 @@ public class DashboardFragment extends Fragment {
     orderredytext = root.findViewById(R.id.orderredytext);
     dashPrize = root.findViewById(R.id.dashprize);
     dashTotal = root.findViewById(R.id.dashtotal);
+    timeDash = root.findViewById(R.id.timeDashBoard);
     cancel = root.findViewById(R.id.cancle);
     dashcard = root.findViewById(R.id.dashcard);
     tokenuser = root.findViewById(R.id.tokenuser);
     firebaseDatabase = FirebaseDatabase.getInstance();
-    databaseReferencehistory = firebaseDatabase.getReference("History");
-    databaseReference10 = firebaseDatabase.getReference("Confirmed");
-    databaseReference4 = firebaseDatabase.getReference("Todayshits");
+    databaseReferencehistory = firebaseDatabase.getReference(FireBaseConstant.HISTORY);
+    databaseReference10 = firebaseDatabase.getReference(FireBaseConstant.CONFIRMED);
+    databaseReference4 = firebaseDatabase.getReference(FireBaseConstant.TODAYS_HITS);
     databaseReference4.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -150,7 +153,7 @@ public class DashboardFragment extends Fragment {
       public void onDataChange(@NonNull DataSnapshot snapshot) {
         if (snapshot.child("id").getValue() != null) {
           id = snapshot.child("id").getValue().toString();
-          databaseReferenceconfromid = firebaseDatabase.getReference("Confirmed").child(id);
+          databaseReferenceconfromid = firebaseDatabase.getReference(FireBaseConstant.CONFIRMED).child(id);
           databaseReferenceconfromid.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -163,7 +166,9 @@ public class DashboardFragment extends Fragment {
                 dashPrize.setText(snapshot.child("foodPrize").getValue().toString());
                 dashTotal.setText(snapshot.child("total").getValue().toString());
                 tokenuser.setText(snapshot.child("userId").getValue().toString());
-                if (snapshot.child("notificationid").exists()) {
+                timeDash.setText(CanteenUtil.ConvertMilliSecondsToPrettyTime(Long.parseLong(snapshot.child("time").getValue().toString())));
+
+                if (snapshot.child(FireBaseConstant.NOTIFICATION_ID).exists()) {
                   orderredytext.setText("Your order is Ready");
                   templineratlayout.setVisibility(View.VISIBLE);
                 }
@@ -185,30 +190,29 @@ public class DashboardFragment extends Fragment {
                       counteroflineno = counteroflineno - 1;
                       String turnText = "Your turn is after " + counteroflineno + " " + "People";
                       turn.setText(turnText);
-                      System.out.println(counteroflineno);
-                      ///CODE TO GIVE NOTIFICATION
-                      if(counteroflineno==0){
-                        Intent intent=new Intent(getContext(),DashboardFragment.class);
-                        String CHANNEL_ID="MYCHANNEL";
-                        NotificationChannel notificationChannel=new NotificationChannel(CHANNEL_ID,"name",NotificationManager.IMPORTANCE_LOW);
-                        PendingIntent pendingIntent=PendingIntent.getActivity(getContext(),1,intent,0);
-                        Notification notification=new Notification.Builder(getContext(),CHANNEL_ID)
-                                .setContentText("Hello")
-                                .setContentTitle("how are you")
-                                .setContentIntent(pendingIntent)
-                                .addAction(android.R.drawable.sym_action_chat,"Title",pendingIntent)
-                                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-                                .setChannelId(CHANNEL_ID)
-                                .setSmallIcon(android.R.drawable.sym_action_chat)
-                                .build();
-
-                        NotificationManager notificationManager=(NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-                        notificationManager.createNotificationChannel(notificationChannel);
-
-                        notificationManager.notify(1,notification);
-
-                        System.out.println("here");
-                      }
+//                      ///CODE TO GIVE NOTIFICATION
+//                      if(counteroflineno==0){
+//                        Intent intent=new Intent(getContext(),DashboardFragment.class);
+//                        String CHANNEL_ID="MYCHANNEL";
+//                        NotificationChannel notificationChannel=new NotificationChannel(CHANNEL_ID,"name",NotificationManager.IMPORTANCE_LOW);
+//                        PendingIntent pendingIntent=PendingIntent.getActivity(getContext(),1,intent,0);
+//                        Notification notification=new Notification.Builder(getContext(),CHANNEL_ID)
+//                                .setContentText("Hello")
+//                                .setContentTitle("how are you")
+//                                .setContentIntent(pendingIntent)
+//                                .addAction(android.R.drawable.sym_action_chat,"Title",pendingIntent)
+//                                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
+//                                .setChannelId(CHANNEL_ID)
+//                                .setSmallIcon(android.R.drawable.sym_action_chat)
+//                                .build();
+//
+//                        NotificationManager notificationManager=(NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+//                        notificationManager.createNotificationChannel(notificationChannel);
+//
+//                        notificationManager.notify(1,notification);
+//
+//                        System.out.println("here");
+//                      }
                     }
                   }
 
@@ -222,6 +226,7 @@ public class DashboardFragment extends Fragment {
                 foodcount = snapshot.child("foodCount").getValue().toString();
                 foodprize = snapshot.child("foodPrize").getValue().toString();
                 total = snapshot.child("total").getValue().toString();
+                time = Long.parseLong(snapshot.child("time").getValue().toString());
                 databaseReferenceuserid.removeEventListener(this);
               } else {
                 dashcard.setVisibility(View.GONE);
@@ -254,9 +259,10 @@ public class DashboardFragment extends Fragment {
       databaseReferencehistory.child(String.valueOf(maxid + 1)).child("foodCount").setValue(foodcount);
       databaseReferencehistory.child(String.valueOf(maxid + 1)).child("foodPrize").setValue(foodprize);
       databaseReferencehistory.child(String.valueOf(maxid + 1)).child("total").setValue(total);
+      databaseReferencehistory.child(String.valueOf(maxid + 1)).child("time").setValue(time);
       databaseReferencehistory.child(String.valueOf(maxid + 1)).child("comment").setValue("REMOVED BY USER");
-      firebaseDatabase.getReference("Confirmed").child(id).removeValue();
-      firebaseDatabase.getReference("Users").child(userID).child("id").removeValue();
+      firebaseDatabase.getReference(FireBaseConstant.CONFIRMED).child(id).removeValue();
+      firebaseDatabase.getReference(FireBaseConstant.USERS).child(userID).child("id").removeValue();
       dashcard.setVisibility(View.GONE);
     });
     return root;

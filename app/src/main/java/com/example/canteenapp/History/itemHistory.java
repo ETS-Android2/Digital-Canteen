@@ -14,6 +14,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.canteenapp.R;
+import com.example.canteenapp.Util.CanteenUtil;
+import com.example.canteenapp.constant.CanteenConstant;
+import com.example.canteenapp.constant.FireBaseConstant;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +30,6 @@ public class itemHistory extends AppCompatActivity {
     TextView netIncomeText;
     DatabaseReference databaseReference,databaseReference2;
     RecyclerView recyclerViewHistory;
-    Button resetHistory;
     FirebaseDatabase firebaseDatabase1;
     DatabaseReference databaseReference1;
     int netIncome =0;
@@ -35,25 +37,19 @@ public class itemHistory extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iteam_history);
-        resetHistory = findViewById(R.id.resethistory);
         netIncomeText = findViewById(R.id.netincome);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("History");
+        databaseReference = firebaseDatabase.getReference(FireBaseConstant.HISTORY);
         firebaseDatabase1 = FirebaseDatabase.getInstance();
-        databaseReference1 = firebaseDatabase1.getReference("History");
+        databaseReference1 = firebaseDatabase1.getReference(FireBaseConstant.HISTORY);
         recyclerViewHistory =(RecyclerView) findViewById(R.id.recycleviewhistory);
-        databaseReference2 =  firebaseDatabase.getReference("Todayshits");
+        databaseReference2 =  firebaseDatabase.getReference(FireBaseConstant.TODAYS_HITS);
         recyclerViewHistory.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         layoutManager.setReverseLayout(true);
         layoutManager.setStackFromEnd(true);
         recyclerViewHistory.setLayoutManager(layoutManager);
-        resetHistory.setOnClickListener(view -> {
-            databaseReference.removeValue();
-            databaseReference2.removeValue();
-           netIncome =0;
-           netIncomeText.setText(String.valueOf(netIncome));
-        });
+
         databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -61,7 +57,7 @@ public class itemHistory extends AppCompatActivity {
                   netIncome =0;
                   for (DataSnapshot s: snapshot.getChildren()) {
                     HistoryModel historyModel = s.getValue(HistoryModel.class);
-                    if (null!=historyModel&& historyModel.getComment().contains("ADMIN")){
+                    if (null!=historyModel&& historyModel.getComment().contains(CanteenConstant.ADMIN)){
                       netIncome = netIncome +Integer.parseInt(historyModel.getTotal());
                     }
                   }
@@ -93,14 +89,15 @@ public class itemHistory extends AppCompatActivity {
                 historyViewHolder.foodPrizeHistory.setText(historyModel.getFoodPrize());
                 historyViewHolder.totalHistory.setText(historyModel.getTotal());
                 historyViewHolder.comment.setText(historyModel.getComment());
+                historyViewHolder.time.setText(CanteenUtil.ConvertMilliSecondsToFormattedDate(historyModel.getTime()));
                 if(historyModel.getComment()!=null){
-                    int greenColorValue;
-                    if (historyModel.getComment().contains("USER")){
-                        greenColorValue = Color.parseColor("#D2EC407A");
+                    int colorValue;
+                    if (historyModel.getComment().contains(CanteenConstant.USER)){
+                        colorValue = Color.parseColor("#D2EC407A");
                     }else {
-                        greenColorValue = Color.parseColor("#29B6F6");
+                        colorValue = Color.parseColor("#29B6F6");
                     }
-                    historyViewHolder.cardViewForOrderList.setCardBackgroundColor(greenColorValue);
+                    historyViewHolder.cardViewForOrderList.setCardBackgroundColor(colorValue);
                 }
             }
             @NonNull

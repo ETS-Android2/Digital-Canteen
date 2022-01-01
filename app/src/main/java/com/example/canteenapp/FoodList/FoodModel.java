@@ -7,8 +7,7 @@ public class FoodModel {
     private String foodPrize;
     private String foodId;
 
-    public FoodModel() {
-    }
+    public FoodModel() {}
 
     public String getFoodName() {
         return foodName;

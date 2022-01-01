@@ -16,6 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.canteenapp.R;
+import com.example.canteenapp.constant.CanteenConstant;
+import com.example.canteenapp.constant.FireBaseConstant;
 import com.example.canteenapp.ui.home.Model;
 import com.example.canteenapp.ui.home.ViewHolderHome;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -44,7 +46,7 @@ public class Food extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food);
         firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference("Foodcard");
+        databaseReference = firebaseDatabase.getReference(FireBaseConstant.FOOD_CARD);
         button = findViewById(R.id.addnewfood);
         fooddone = findViewById(R.id.DONefOOD);
         fodname = findViewById(R.id.setFoodname);

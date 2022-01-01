@@ -8,63 +8,72 @@ public class HistoryModel {
     private String userName;
     private String comment;
     private String color;
+    private long time;
 
     void HistoryModel(){
     }
 
-    public String getColor() {
-        return color;
-    }
+  public String getFoodName() {
+    return foodName;
+  }
 
-    public void setColor(String color) {
-        this.color = color;
-    }
+  public void setFoodName(String foodName) {
+    this.foodName = foodName;
+  }
 
-    public String getFoodName() {
-        return foodName;
-    }
+  public String getFoodPrize() {
+    return foodPrize;
+  }
 
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
-    }
+  public void setFoodPrize(String foodPrize) {
+    this.foodPrize = foodPrize;
+  }
 
-    public String getFoodPrize() {
-        return foodPrize;
-    }
+  public String getFoodCount() {
+    return foodCount;
+  }
 
-    public void setFoodPrize(String foodPrize) {
-        this.foodPrize = foodPrize;
-    }
+  public void setFoodCount(String foodCount) {
+    this.foodCount = foodCount;
+  }
 
-    public String getFoodCount() {
-        return foodCount;
-    }
+  public String getTotal() {
+    return total;
+  }
 
-    public void setFoodCount(String foodCount) {
-        this.foodCount = foodCount;
-    }
+  public void setTotal(String total) {
+    this.total = total;
+  }
 
-    public String getTotal() {
-        return total;
-    }
+  public String getUserName() {
+    return userName;
+  }
 
-    public void setTotal(String total) {
-        this.total = total;
-    }
+  public void setUserName(String userName) {
+    this.userName = userName;
+  }
 
-    public String getUserName() {
-        return userName;
-    }
+  public String getComment() {
+    return comment;
+  }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+  public void setComment(String comment) {
+    this.comment = comment;
+  }
 
-    public String getComment() {
-        return comment;
-    }
+  public String getColor() {
+    return color;
+  }
 
-    public void setComment(String comment) {
-        this.comment = comment;
-    }
+  public void setColor(String color) {
+    this.color = color;
+  }
+
+  public long getTime() {
+    return time;
+  }
+
+  public void setTime(long time) {
+    this.time = time;
+  }
 }

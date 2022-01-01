@@ -5,11 +5,23 @@
       <map>
         <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_adminpanelgdfg.xml" value="0.1" />
         <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_buttom_navgation.xml" value="0.20625" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_food.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_iteam_history.xml" value="0.4" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_nointernet.xml" value="0.17300724637681159" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_order_iteam.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_registration.xml" value="0.25" />
         <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/activity_splash_screen.xml" value="0.1" />
         <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/admin_panel.xml" value="0.1" />
         <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/confromationscreen.xml" value="0.1" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/foodtemp.xml" value="0.25" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/fragment_home.xml" value="0.176" />
         <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/fragment_user.xml" value="0.20625" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/homefragement_style.xml" value="0.25" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/iteamhistorytemp.xml" value="0.18020833333333333" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/layout/orderiteamtemplate.xml" value="0.4" />
+        <entry key="..\:/Users/aa986/CanteenApp/app/src/main/res/xml/homepage_shimmer.xml" value="0.25" />
       </map>
     </option>
   </component>
