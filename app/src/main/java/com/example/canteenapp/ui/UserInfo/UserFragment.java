@@ -43,7 +43,7 @@ public class UserFragment extends Fragment {
 
   private static final int RESULT_OK = -1;
   private UserViewModel notificationsViewModel;
-  TextView name, email, phone, usertotal, uploadImage;
+  TextView name, email, phone, uploadImage,weeklyExpenses,monthlyExpenses,yearlyExpenses;
   FirebaseAuth firebaseAuth;
   FirebaseDatabase firebaseDatabase;
   DatabaseReference databaseReference, databaseReference4;
@@ -65,7 +65,7 @@ public class UserFragment extends Fragment {
     View root = inflater.inflate(R.layout.fragment_user, container, false);
     name = root.findViewById(R.id.userSectionNsme);
     email = root.findViewById(R.id.userSectionEmail);
-    usertotal = root.findViewById(R.id.usertotal);
+
     phone = root.findViewById(R.id.userSectionPhone);
     cardView = root.findViewById(R.id.dashcard);
     progressBar = root.findViewById(R.id.progressBarpic);
@@ -74,6 +74,9 @@ public class UserFragment extends Fragment {
     picture = root.findViewById(R.id.picture);
     uploadImage = root.findViewById(R.id.uploadPicture);
     firebaseAuth = FirebaseAuth.getInstance();
+    weeklyExpenses=root.findViewById(R.id.weeklyExpenses);
+    monthlyExpenses=root.findViewById(R.id.monthlyExpenses);
+    yearlyExpenses=root.findViewById(R.id.yearlyExpenses);
     firebaseDatabase = FirebaseDatabase.getInstance();
     user = firebaseAuth.getCurrentUser();
     userID = user.getUid();
@@ -84,7 +87,9 @@ public class UserFragment extends Fragment {
     resetdata = root.findViewById(R.id.resetdata);
     resetdata.setOnClickListener(v -> {
       databaseReference4.child(userID).removeValue();
-      usertotal.setText("0");
+      weeklyExpenses.setText("Rs.0");
+      monthlyExpenses.setText("Rs.0");
+      yearlyExpenses.setText("Rs.0");
     });
     logout.setOnClickListener(view -> {
       firebaseAuth.signOut();
@@ -94,7 +99,7 @@ public class UserFragment extends Fragment {
     return root;
   }
 
-  public void Uploaded(View view) {
+  public void Uploaded() {
     CropImage.activity()
             .start(getContext(), this);
   }
@@ -145,7 +150,6 @@ public class UserFragment extends Fragment {
       public void onDataChange(@NonNull DataSnapshot snapshot) {
         if (snapshot.child("image").getValue() != null) {
           uploadImage.setVisibility(View.GONE);
-          cameraIcon.setVisibility(View.GONE);
           Picasso.get().load(snapshot.child("image").getValue().toString()).into(picture);
         }
         String EMAIL = snapshot.child("email").getValue().toString();
@@ -160,7 +164,12 @@ public class UserFragment extends Fragment {
             if (snapshot.getValue() != null) {
               if (snapshot.hasChild(userID)) {
                 String userT = snapshot.child(userID).getValue().toString();
-                usertotal.setText(userT);
+                String weeklyExpensesText = String.valueOf(Integer.parseInt(userT)/7);
+                String monthlyExpensesText = String.valueOf(Integer.parseInt(userT)/30);
+                String yearlyExpensesText = String.valueOf(Integer.parseInt(userT)/365);
+                weeklyExpenses.setText("Rs."+weeklyExpensesText);
+                monthlyExpenses.setText("Rs."+monthlyExpensesText);
+                yearlyExpenses.setText("Rs."+yearlyExpensesText);
               }
             }
           }
@@ -170,7 +179,7 @@ public class UserFragment extends Fragment {
 
           }
         });
-        picture.setOnClickListener(view -> Uploaded(view));
+        picture.setOnClickListener(view -> Uploaded());
 
       }
 

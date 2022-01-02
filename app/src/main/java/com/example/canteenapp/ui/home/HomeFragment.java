@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
 import com.example.canteenapp.constant.FireBaseConstant;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -46,12 +47,13 @@ public class HomeFragment extends Fragment {
   DatabaseReference databaseReference, databaseReference2, databaseReference3, databaseReference4, databaseReference5,databaseReferenceUserNameAndPicture;
   FirebaseAuth firebaseAuth;
   FirebaseUser user;
+  ShimmerFrameLayout homepageShimmer;
   RecyclerView recyclerView;
   FloatingActionButton floatingActionButton;
   String userID, content, a;
   String username;
   String foodname, foodprize, foodcount;
-  RelativeLayout homePageMainLayout;
+  RelativeLayout homePageMainLayout,welcomeText,logoAndTileBar;
   ImageView homePageUserImage;
   TextView homePageUserName;
   int foodtotal = 0;
@@ -68,9 +70,12 @@ public class HomeFragment extends Fragment {
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     floatingActionButton = root.findViewById(R.id.floatingActionButton1);
+    homepageShimmer = root.findViewById(R.id.shimmerHomePageFrameLayout);
+    welcomeText = root.findViewById(R.id.welcomeText);
     homePageUserImage = root.findViewById(R.id.homePageUserImage);
     homePageUserName=root.findViewById(R.id.homePageUserName);
     homePageMainLayout= root.findViewById(R.id.homePageMainLayout);
+    logoAndTileBar= root.findViewById(R.id.logoAndTileBar);
     firebaseAuth = FirebaseAuth.getInstance();
     firebaseDatabase2 = FirebaseDatabase.getInstance();
     user = firebaseAuth.getCurrentUser();
@@ -205,7 +210,6 @@ public class HomeFragment extends Fragment {
           int total = 0;
           a = content;
           a = a.replaceAll("=", " ,");
-          a = a.replaceAll(" ", "");
           a = a.replace("{", "");
           a = a.replace("}", "");
           String[] afinal = a.split(",");
@@ -227,10 +231,12 @@ public class HomeFragment extends Fragment {
           }
 
           if (total != 0) {
-            foodname = fName;
+            fName=fName.replaceFirst("\n","");
             foodname = fName;
             foodprize = fPrize;
+            fPrize=fPrize.replaceFirst("\n","");
             foodcount = fCount;
+            fCount=fCount.replaceFirst("\n","");
             foodtotal = total;
             nameFood.setText(fName);
             countFood.setText(fCount);
@@ -251,58 +257,59 @@ public class HomeFragment extends Fragment {
 
   @Override
   public void onStart() {
-    homePageMainLayout.setVisibility(View.GONE);
     super.onStart();
+    homepageShimmer.startShimmerAnimation();
+    welcomeText.setVisibility(View.GONE);
+    logoAndTileBar.setVisibility(View.GONE);
     if (!isInternetAvailable()) {
       Intent intent = new Intent(getContext(), NoInternet.class);
       startActivity(intent);
     }
-    Thread thread1 = new Thread(()->{
-      databaseReferenceUserNameAndPicture.addValueEventListener(new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-          if (snapshot.child("image").getValue() != null) {
-            Picasso.get().load(snapshot.child("image").getValue().toString()).into(homePageUserImage);
-          }
-          homePageUserName.setText(snapshot.child("name").getValue().toString().split(" ")[0]);
-          homePageMainLayout.setVisibility(View.VISIBLE);
+    databaseReferenceUserNameAndPicture.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot snapshot) {
+        if (snapshot.child("image").getValue() != null) {
+          Picasso.get().load(snapshot.child("image").getValue().toString()).into(homePageUserImage);
         }
+        homePageUserName.setText(snapshot.child("name").getValue().toString().split(" ")[0]);
+        welcomeText.setVisibility(View.VISIBLE);
+        logoAndTileBar.setVisibility(View.VISIBLE);
+        homePageMainLayout.setVisibility(View.VISIBLE);
+        homepageShimmer.stopShimmerAnimation();
+        homepageShimmer.setVisibility(View.GONE);
 
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
 
-        }
-      });
+      }
+
+      @Override
+      public void onCancelled(@NonNull DatabaseError error) {
+
+      }
     });
-   Thread thread2 = new Thread(()->{
-     databaseReference2.removeValue();
-     FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Model>().setQuery(databaseReference, Model.class).build();
-     FirebaseRecyclerAdapter<Model, ViewHolderHome> firebaseRecyclerAdapter = new
-             FirebaseRecyclerAdapter<Model, ViewHolderHome>(options) {
-               @Override
-               protected void onBindViewHolder(@NonNull final ViewHolderHome viewHolderHome, final int i, @NonNull final Model model) {
+    databaseReference2.removeValue();
+    FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<Model>().setQuery(databaseReference, Model.class).build();
+    FirebaseRecyclerAdapter<Model, ViewHolderHome> firebaseRecyclerAdapter = new
+            FirebaseRecyclerAdapter<Model, ViewHolderHome>(options) {
+              @Override
+              protected void onBindViewHolder(@NonNull final ViewHolderHome viewHolderHome, final int i, @NonNull final Model model) {
 
-                 viewHolderHome.foodName.setText(model.getFoodName());
-                 viewHolderHome.foodPrize.setText(model.getFoodPrize());
-                 Picasso.get().load(model.getFoodPicture()).into(viewHolderHome.foodPicture);
-               }
+                viewHolderHome.foodName.setText(model.getFoodName());
+                viewHolderHome.foodPrize.setText(model.getFoodPrize());
+                Picasso.get().load(model.getFoodPicture()).into(viewHolderHome.foodPicture);
+              }
 
-               @NonNull
-               @Override
-               public ViewHolderHome onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.homefragement_style, parent, false);
-                 return new ViewHolderHome(view);
-               }
-             };
-     firebaseRecyclerAdapter.startListening();
-     firebaseRecyclerAdapter.notifyDataSetChanged();
-     recyclerView.setItemViewCacheSize(900);
-     recyclerView.setAdapter(firebaseRecyclerAdapter);
-   });
-   thread1.setPriority(Thread.MAX_PRIORITY);
-   thread2.setPriority(Thread.MAX_PRIORITY);
-   thread2.start();
-   thread1.start();
+              @NonNull
+              @Override
+              public ViewHolderHome onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.homefragement_style, parent, false);
+                return new ViewHolderHome(view);
+              }
+            };
+    firebaseRecyclerAdapter.startListening();
+    firebaseRecyclerAdapter.notifyDataSetChanged();
+    recyclerView.setItemViewCacheSize(900);
+    recyclerView.setAdapter(firebaseRecyclerAdapter);
+
   }
 
   public boolean isInternetAvailable() {

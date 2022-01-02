@@ -1,109 +1,121 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/background"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerHomePageFrameLayout"
         android:layout_width="match_parent"
-        android:layout_height="170dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="5dp"
-        android:elevation="24dp"
-        app:cardCornerRadius="30dp"
-        app:cardMaxElevation="36dp">
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <include layout="@layout/shimmer_homepage" />
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+    <RelativeLayout
+        android:id="@+id/homePageMainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:id="@+id/logoAndTileBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
             android:orientation="horizontal">
 
-
             <ImageView
-                android:id="@+id/foodPicture"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:scaleType="centerCrop" />
+                android:id="@+id/logo"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:src="@mipmap/logo" />
 
-            <LinearLayout
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/logo"
+                android:textColor="@color/textSecondaryColor"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Digital Canteen"
+                android:textSize="18dp" />
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/homePageUserImage"
+                android:layout_width="46dp"
+                android:layout_height="46dp"
+                android:layout_alignParentRight="true"
+                app:civ_border_color="#ffffff"
+                app:civ_border_width="2dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:id="@+id/welcomeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/logoAndTileBar"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/heyText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppinsbold"
+                android:text="HEY, "
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="20dp" />
+
+            <TextView
+                android:id="@+id/homePageUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/heyText"
+                android:fontFamily="@font/poppinsbold"
+                android:text=""
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="20dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/heyText"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="what do you want to eat today?"
+                android:textColor="#717171"
+                android:textSize="16dp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/welcomeText">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="60dp"
+                android:overScrollMode="never" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButton1"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/foodName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="5dp"
-                    android:gravity="center"
-                    android:textColor="#323643"
-                    android:textSize="24dp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#323643"
-                        android:textSize="24dp" />
-
-                    <TextView
-                        android:id="@+id/foodPrize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="5dp"
-                        android:textColor="#323643"
-                        android:textSize="24dp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:id="@+id/minus"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/minus" />
-
-                    <TextView
-                        android:id="@+id/zeroValue"
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="22dp"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:textColor="#EA004F"
-                        android:textSize="50dp" />
-
-                    <ImageView
-                        android:id="@+id/plus"
-                        android:layout_width="50dp"
-                        android:layout_height="wrap_content"
-
-                        android:layout_weight="1"
-                        app:srcCompat="@drawable/plus" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
-</LinearLayout>
-
-
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="20dp"
+                android:layout_marginBottom="117dp"
+                android:src="@mipmap/tick"
+                app:backgroundTint="@color/textPrimaryColor" />
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

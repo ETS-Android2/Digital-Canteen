@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".OrderList.OrderIteam"
     android:orientation="vertical">
 
-    <ProgressBar
-        android:id="@+id/orderprogess"
-        android:visibility="gone"
-        android:layout_marginTop="10dp"
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/orderIteamShimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_width="295dp"
-        android:layout_height="220dp"></ProgressBar>
+        android:orientation="vertical">
+        <include layout="@layout/shimmer_order_item" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+    <TextView
+        android:id="@+id/orderItemTitle"
+        android:layout_margin="8dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppinsmedium"
+        android:textColor="@color/textPrimaryColor"
+        android:textSize="24dp"
+        android:layout_gravity="center_horizontal"
+        android:text="Ordered Item List"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclervireforiteam"
         android:layout_width="match_parent"
+        android:overScrollMode="never"
         android:layout_height="match_parent" >
     </androidx.recyclerview.widget.RecyclerView>
 

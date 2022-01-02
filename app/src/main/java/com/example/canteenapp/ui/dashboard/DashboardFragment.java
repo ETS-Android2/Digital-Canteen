@@ -1,12 +1,7 @@
 package com.example.canteenapp.ui.dashboard;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -16,17 +11,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
-import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.Fragment;
 
-import com.example.canteenapp.MainActivity;
 import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
 import com.example.canteenapp.Util.CanteenUtil;
@@ -56,7 +48,6 @@ public class DashboardFragment extends Fragment {
   Button cancel, pay;
   TextView dashName, dashQuantity, dashPrize, dashTotal, tokenuser, hititems, orderredytext, turn, timeDash;
   CardView dashcard;
-  LinearLayout templineratlayout;
   ProgressBar dashprogess;
   long maxid = 0, time;
 
@@ -72,8 +63,6 @@ public class DashboardFragment extends Fragment {
     dashprogess.setVisibility(View.VISIBLE);
     hititems = root.findViewById(R.id.hititems);
     turn = root.findViewById(R.id.turn);
-    templineratlayout = root.findViewById(R.id.templineratlayout);
-    templineratlayout.setVisibility(View.GONE);
     dashName = root.findViewById(R.id.dashfoodname);
     dashQuantity = root.findViewById(R.id.dashquantity);
     orderredytext = root.findViewById(R.id.orderredytext);
@@ -161,16 +150,22 @@ public class DashboardFragment extends Fragment {
               if (snapshot.getValue() != null) {
                 dashprogess.setVisibility(View.GONE);
                 dashcard.setVisibility(View.VISIBLE);
-                dashName.setText(snapshot.child("foodName").getValue().toString());
-                dashQuantity.setText(snapshot.child("foodCount").getValue().toString());
-                dashPrize.setText(snapshot.child("foodPrize").getValue().toString());
+                String foodName = snapshot.child("foodName").getValue().toString();
+
+                dashName.setText(foodName);
+                String foodCount = snapshot.child("foodCount").getValue().toString();
+                foodCount = foodCount.replaceFirst("\n", "");
+                dashQuantity.setText(foodCount);
+                String foodPrize = snapshot.child("foodPrize").getValue().toString();
+                foodPrize = foodPrize.replaceFirst("\n", "");
+                dashPrize.setText(foodPrize);
                 dashTotal.setText(snapshot.child("total").getValue().toString());
                 tokenuser.setText(snapshot.child("userId").getValue().toString());
                 timeDash.setText(CanteenUtil.ConvertMilliSecondsToPrettyTime(Long.parseLong(snapshot.child("time").getValue().toString())));
 
                 if (snapshot.child(FireBaseConstant.NOTIFICATION_ID).exists()) {
                   orderredytext.setText("Your order is Ready");
-                  templineratlayout.setVisibility(View.VISIBLE);
+                  orderredytext.setVisibility(View.VISIBLE);
                 }
                 final int token = Integer.parseInt(snapshot.child("userId").getValue().toString());
                 databaseReference10.addValueEventListener(new ValueEventListener() {
@@ -188,7 +183,7 @@ public class DashboardFragment extends Fragment {
                         counteroflineno++;
                       }
                       counteroflineno = counteroflineno - 1;
-                      String turnText = "Your turn is after " + counteroflineno + " " + "People";
+                      String turnText = "Your turn is after " + counteroflineno + " " + "people";
                       turn.setText(turnText);
 //                      ///CODE TO GIVE NOTIFICATION
 //                      if(counteroflineno==0){
