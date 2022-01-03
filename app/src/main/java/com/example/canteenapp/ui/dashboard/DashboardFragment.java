@@ -50,6 +50,7 @@ public class DashboardFragment extends Fragment {
   CardView dashcard;
   ProgressBar dashprogess;
   long maxid = 0, time;
+  public static int STATUS = 01;
 
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
@@ -185,29 +186,9 @@ public class DashboardFragment extends Fragment {
                       counteroflineno = counteroflineno - 1;
                       String turnText = "Your turn is after " + counteroflineno + " " + "people";
                       turn.setText(turnText);
-//                      ///CODE TO GIVE NOTIFICATION
-//                      if(counteroflineno==0){
-//                        Intent intent=new Intent(getContext(),DashboardFragment.class);
-//                        String CHANNEL_ID="MYCHANNEL";
-//                        NotificationChannel notificationChannel=new NotificationChannel(CHANNEL_ID,"name",NotificationManager.IMPORTANCE_LOW);
-//                        PendingIntent pendingIntent=PendingIntent.getActivity(getContext(),1,intent,0);
-//                        Notification notification=new Notification.Builder(getContext(),CHANNEL_ID)
-//                                .setContentText("Hello")
-//                                .setContentTitle("how are you")
-//                                .setContentIntent(pendingIntent)
-//                                .addAction(android.R.drawable.sym_action_chat,"Title",pendingIntent)
-//                                .setSound(RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION))
-//                                .setChannelId(CHANNEL_ID)
-//                                .setSmallIcon(android.R.drawable.sym_action_chat)
-//                                .build();
-//
-//                        NotificationManager notificationManager=(NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
-//                        notificationManager.createNotificationChannel(notificationChannel);
-//
-//                        notificationManager.notify(1,notification);
-//
-//                        System.out.println("here");
-//                      }
+                      if (counteroflineno == 0) {
+                        orderredytext.setVisibility(View.VISIBLE);
+                      }
                     }
                   }
 
@@ -271,6 +252,7 @@ public class DashboardFragment extends Fragment {
       startActivity(new Intent(getContext(), NoInternet.class));
     }
   }
+
 
   public boolean isInternetAvailable() {
     ConnectivityManager connectivityManager = (ConnectivityManager) this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);

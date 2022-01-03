@@ -101,21 +101,54 @@
                 android:fontFamily="@font/poppinsbold"
                 android:textColor="@color/textPrimaryColor"
                 android:textSize="30dp" />
+            <EditText
+                android:visibility="gone"
+                android:id="@+id/editTextUserSectionNsme"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/poppinsbold"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="30dp" />
 
             <TextView
                 android:id="@+id/userSectionEmail"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/userSectionNsme"
                 android:layout_centerHorizontal="true"
                 android:fontFamily="@font/poppinsmedium"
                 android:textColor="@color/textSecondaryColor"
-
+                android:textSize="16dp" />
+            <EditText
+                android:visibility="gone"
+                android:imeOptions="actionDone"
+                android:inputType="text"
+                android:id="@+id/editUserSectionEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userSectionNsme"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/poppinsmedium"
+                android:textColor="@color/textSecondaryColor"
                 android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/userSectionPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/userSectionEmail"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/poppinslight"
+                android:textColor="@color/textSecondaryColor"
+                android:textSize="16dp" />
+            <EditText
+                android:visibility="gone"
+                android:imeOptions="actionDone"
+                android:inputType="phone"
+                android:id="@+id/editUserSectionPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/userSectionEmail"
@@ -261,10 +294,6 @@
         android:fontFamily="@font/poppinsmedium"
         android:textColor="@color/white" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@mipmap/burger" />
 
 
 </LinearLayout>

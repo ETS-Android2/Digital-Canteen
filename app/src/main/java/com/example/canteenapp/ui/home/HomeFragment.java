@@ -21,9 +21,11 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.canteenapp.AdminPanel;
 import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
 import com.example.canteenapp.constant.FireBaseConstant;
+import com.example.canteenapp.ui.UserInfo.UserFragment;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -40,6 +42,8 @@ import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
   private HomeViewModel homeViewModel;
@@ -87,6 +91,12 @@ public class HomeFragment extends Fragment {
     databaseReference3 = firebaseDatabase2.getReference(FireBaseConstant.CONFIRMED);
     databaseReference4 = firebaseDatabase.getReference(FireBaseConstant.USERS).child(userID).child(FireBaseConstant.NAME);
     databaseReference5 = firebaseDatabase.getReference(FireBaseConstant.USERS).child(userID);
+
+    homePageUserImage.setOnClickListener(v -> {
+      Navigation.findNavController(root).navigate(R.id.navigation_user);
+
+    });
+
     databaseReference3.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -271,7 +281,7 @@ public class HomeFragment extends Fragment {
         if (snapshot.child("image").getValue() != null) {
           Picasso.get().load(snapshot.child("image").getValue().toString()).into(homePageUserImage);
         }
-        homePageUserName.setText(snapshot.child("name").getValue().toString().split(" ")[0]);
+        homePageUserName.setText(snapshot.child("name").getValue().toString().split(" ")[0]+"!"+"\uD83D\uDC4B");
         welcomeText.setVisibility(View.VISIBLE);
         logoAndTileBar.setVisibility(View.VISIBLE);
         homePageMainLayout.setVisibility(View.VISIBLE);

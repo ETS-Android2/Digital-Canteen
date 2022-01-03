@@ -1,15 +1,21 @@
 package com.example.canteenapp.ui.UserInfo;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -25,6 +31,8 @@ import com.example.canteenapp.MainActivity;
 import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
 import com.example.canteenapp.constant.FireBaseConstant;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -43,12 +51,13 @@ public class UserFragment extends Fragment {
 
   private static final int RESULT_OK = -1;
   private UserViewModel notificationsViewModel;
-  TextView name, email, phone, uploadImage,weeklyExpenses,monthlyExpenses,yearlyExpenses;
+  TextView name, email, phone, uploadImage, weeklyExpenses, monthlyExpenses, yearlyExpenses;
   FirebaseAuth firebaseAuth;
   FirebaseDatabase firebaseDatabase;
   DatabaseReference databaseReference, databaseReference4;
   FirebaseUser user;
   String userID;
+  EditText editTextUserSectionNsme, editUserSectionEmail, editUserSectionPhone;
   Button logout, resetdata;
   String NAME;
   StorageReference storageReference;
@@ -65,7 +74,6 @@ public class UserFragment extends Fragment {
     View root = inflater.inflate(R.layout.fragment_user, container, false);
     name = root.findViewById(R.id.userSectionNsme);
     email = root.findViewById(R.id.userSectionEmail);
-
     phone = root.findViewById(R.id.userSectionPhone);
     cardView = root.findViewById(R.id.dashcard);
     progressBar = root.findViewById(R.id.progressBarpic);
@@ -74,9 +82,12 @@ public class UserFragment extends Fragment {
     picture = root.findViewById(R.id.picture);
     uploadImage = root.findViewById(R.id.uploadPicture);
     firebaseAuth = FirebaseAuth.getInstance();
-    weeklyExpenses=root.findViewById(R.id.weeklyExpenses);
-    monthlyExpenses=root.findViewById(R.id.monthlyExpenses);
-    yearlyExpenses=root.findViewById(R.id.yearlyExpenses);
+    weeklyExpenses = root.findViewById(R.id.weeklyExpenses);
+    monthlyExpenses = root.findViewById(R.id.monthlyExpenses);
+    editTextUserSectionNsme = root.findViewById(R.id.editTextUserSectionNsme);
+    editUserSectionEmail = root.findViewById(R.id.editUserSectionEmail);
+    editUserSectionPhone = root.findViewById(R.id.editUserSectionPhone);
+    yearlyExpenses = root.findViewById(R.id.yearlyExpenses);
     firebaseDatabase = FirebaseDatabase.getInstance();
     user = firebaseAuth.getCurrentUser();
     userID = user.getUid();
@@ -85,6 +96,67 @@ public class UserFragment extends Fragment {
     storageReference = FirebaseStorage.getInstance().getReference().child(userID);
     logout = root.findViewById(R.id.logout);
     resetdata = root.findViewById(R.id.resetdata);
+
+    //FOR PHONE NUMBER EDIT
+    phone.setOnClickListener(v -> {
+      phone.setVisibility(View.GONE);
+      editUserSectionPhone.setText(phone.getText());
+      editUserSectionPhone.setVisibility(View.VISIBLE);
+    });
+    editUserSectionPhone.setOnEditorActionListener((v1, actionId, event) -> {
+      if (v1.getText().toString() != phone.getText()) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+          databaseReference.child("phone").setValue(v1.getText().toString());
+          phone.setVisibility(View.VISIBLE);
+          editUserSectionPhone.setVisibility(View.GONE);
+          InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+          imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+          return true;
+        }
+      }
+      return false;
+    });
+
+    //FOR EMAIL EDIT
+    email.setOnClickListener(v -> {
+      email.setVisibility(View.GONE);
+      editUserSectionEmail.setText(email.getText());
+      editUserSectionEmail.setVisibility(View.VISIBLE);
+    });
+    editUserSectionEmail.setOnEditorActionListener((v2, actionId, event) -> {
+      if (v2.getText().toString() != email.getText()) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+          databaseReference.child("email").setValue(v2.getText().toString());
+          user.updateEmail(v2.getText().toString())
+                  .addOnCompleteListener(task -> {});
+          email.setVisibility(View.VISIBLE);
+          editUserSectionEmail.setVisibility(View.GONE);
+          InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+          imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+          return true;
+        }
+      }
+      return false;
+    });
+//FOR USERNAME EDIT
+    name.setOnClickListener(v -> {
+      name.setVisibility(View.GONE);
+      editTextUserSectionNsme.setText(name.getText());
+      editTextUserSectionNsme.setVisibility(View.VISIBLE);
+    });
+    editTextUserSectionNsme.setOnEditorActionListener((v3, actionId, event) -> {
+      if (v3.getText().toString() != name.getText()) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+          databaseReference.child("name").setValue(v3.getText().toString());
+          name.setVisibility(View.VISIBLE);
+          editTextUserSectionNsme.setVisibility(View.GONE);
+          InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
+          imm.toggleSoftInput(InputMethodManager.HIDE_IMPLICIT_ONLY, 0);
+          return true;
+        }
+      }
+      return false;
+    });
     resetdata.setOnClickListener(v -> {
       databaseReference4.child(userID).removeValue();
       weeklyExpenses.setText("Rs.0");
@@ -164,12 +236,12 @@ public class UserFragment extends Fragment {
             if (snapshot.getValue() != null) {
               if (snapshot.hasChild(userID)) {
                 String userT = snapshot.child(userID).getValue().toString();
-                String weeklyExpensesText = String.valueOf(Integer.parseInt(userT)/7);
-                String monthlyExpensesText = String.valueOf(Integer.parseInt(userT)/30);
-                String yearlyExpensesText = String.valueOf(Integer.parseInt(userT)/365);
-                weeklyExpenses.setText("Rs."+weeklyExpensesText);
-                monthlyExpenses.setText("Rs."+monthlyExpensesText);
-                yearlyExpenses.setText("Rs."+yearlyExpensesText);
+                String weeklyExpensesText = String.valueOf(Integer.parseInt(userT) / 7);
+                String monthlyExpensesText = String.valueOf(Integer.parseInt(userT) / 30);
+                String yearlyExpensesText = String.valueOf(Integer.parseInt(userT) / 365);
+                weeklyExpenses.setText("Rs." + weeklyExpensesText);
+                monthlyExpenses.setText("Rs." + monthlyExpensesText);
+                yearlyExpenses.setText("Rs." + yearlyExpensesText);
               }
             }
           }

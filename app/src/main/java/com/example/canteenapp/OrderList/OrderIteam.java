@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,7 +26,7 @@ import com.google.firebase.database.ValueEventListener;
 
 public class OrderIteam extends AppCompatActivity {
   private FirebaseDatabase firebaseDatabase;
-  private DatabaseReference databaseReference, databaseReference2, databaseReference4, databaseReference11, databaseReferenceCancleConfromOrder, databaseReferencesuser;
+  private DatabaseReference databaseReference,databaseReferenceMasterRecord, databaseReference2, databaseReference4, databaseReference11, databaseReferenceCancleConfromOrder, databaseReferencesuser;
   RecyclerView recyclerView;
   FirebaseRecyclerAdapter<ModelOrder, OrderViewHolder> firebaseRecyclerAdapter;
   long maxId = 0;
@@ -46,6 +45,7 @@ public class OrderIteam extends AppCompatActivity {
     databaseReference4 = firebaseDatabase.getReference().child(FireBaseConstant.TOTAL_MONEY_OF_USER);
     databaseReference2 = firebaseDatabase.getReference(FireBaseConstant.HISTORY);
     databaseReferencesuser = firebaseDatabase.getReference().child(FireBaseConstant.USERS);
+    databaseReferenceMasterRecord = firebaseDatabase.getReference().child(FireBaseConstant.MASTER_RECORD);
     title=findViewById(R.id.orderItemTitle);
     shimmerFrameLayout=findViewById(R.id.orderIteamShimmerLayout);
     shimmerFrameLayout.startShimmerAnimation();
@@ -114,6 +114,13 @@ public class OrderIteam extends AppCompatActivity {
                 });
                 orderViewHolder.done.setOnClickListener(view -> {
                   databaseReferencesuser.child(modelorder.getUniqueId()).child("id").removeValue();
+                  databaseReferenceMasterRecord.child(String.valueOf(maxId + 1)).child("userName").setValue(modelorder.getName());
+                  databaseReferenceMasterRecord.child(String.valueOf(maxId + 1)).child("foodName").setValue(modelorder.getFoodName());
+                  databaseReferenceMasterRecord.child(String.valueOf(maxId + 1)).child("foodCount").setValue(modelorder.getFoodCount());
+                  databaseReferenceMasterRecord.child(String.valueOf(maxId + 1)).child("foodPrize").setValue(modelorder.getFoodPrize());
+                  databaseReferenceMasterRecord.child(String.valueOf(maxId + 1)).child("total").setValue(modelorder.getTotal());
+                  databaseReferenceMasterRecord.child(String.valueOf(maxId + 1)).child("time").setValue(modelorder.getTime());
+
                   databaseReference2.child(String.valueOf(maxId + 1)).child("userName").setValue(modelorder.getName());
                   databaseReference2.child(String.valueOf(maxId + 1)).child("foodName").setValue(modelorder.getFoodName());
                   databaseReference2.child(String.valueOf(maxId + 1)).child("foodCount").setValue(modelorder.getFoodCount());
