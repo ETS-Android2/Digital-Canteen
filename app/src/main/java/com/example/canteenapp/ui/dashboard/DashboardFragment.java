@@ -31,6 +31,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.InetAddress;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +48,8 @@ public class DashboardFragment extends Fragment {
   List<String> userIdList = new ArrayList();
   String userID, id, hitText = "";
   String username, foodname, foodcount, foodprize, total;
-  Button cancel, pay;
+  Button cancel;
+  Button pay;
   TextView dashName, dashQuantity, dashPrize, dashTotal, tokenuser, hititems, orderredytext, turn, timeDash;
   CardView dashcard;
   ProgressBar dashprogess;
@@ -255,8 +259,12 @@ public class DashboardFragment extends Fragment {
 
 
   public boolean isInternetAvailable() {
-    ConnectivityManager connectivityManager = (ConnectivityManager) this.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-    return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-            connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+    try {
+      InetAddress ipAddr = InetAddress.getByName("google.com");
+      return !ipAddr.equals("");
+
+    } catch (Exception e) {
+      return false;
+    }
   }
 }

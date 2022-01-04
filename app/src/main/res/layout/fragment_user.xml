@@ -8,14 +8,13 @@
     android:orientation="vertical"
     tools:context=".ui.UserInfo.UserFragment">
 <TextView
-    android:layout_margin="4dp"
-    android:layout_gravity="center_horizontal"
-    android:textColor="@color/textSecondaryColor"
+   android:layout_margin="8dp"
+    android:textColor="@color/textPrimaryColor"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:fontFamily="@font/poppinsmedium"
     android:textSize="16dp"
-    android:text="User Page"
+    android:text="User Info"
    />
     <FrameLayout
         android:layout_width="wrap_content"
@@ -194,7 +193,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppinsbold"
-        android:textSize="16dp"
+        android:textSize="24dp"
         android:textColor="@color/textSecondaryColor"
         android:text="Weekly"/>
     <TextView
@@ -203,7 +202,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppinsbold"
-        android:textSize="16dp"
+        android:textSize="24dp"
         android:textColor="@color/textSecondaryColor"
         android:text="Monthly"/>
     <TextView
@@ -212,7 +211,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/poppinsbold"
-        android:textSize="16dp"
+        android:textSize="24dp"
         android:textColor="@color/textSecondaryColor"
         android:text="Yearly"/>
 </LinearLayout>
@@ -227,7 +226,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppinsbold"
-                android:textSize="30dp"
+                android:textSize="16dp"
                 android:textColor="@color/textPrimaryColor"
                 android:text="Rs.0"/>
             <TextView
@@ -237,7 +236,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppinsbold"
-                android:textSize="30dp"
+                android:textSize="16dp"
                 android:textColor="@color/textPrimaryColor"
                 android:text="Rs.0"/>
             <TextView
@@ -247,7 +246,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppinsbold"
-                android:textSize="30dp"
+                android:textSize="16dp"
                 android:textColor="@color/textPrimaryColor"
                 android:text="Rs.0"/>
         </LinearLayout>

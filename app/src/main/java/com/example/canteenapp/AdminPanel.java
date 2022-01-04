@@ -44,5 +44,7 @@ public class AdminPanel extends AppCompatActivity {
   public void onBackPressed() {
     super.onBackPressed();
     finishAffinity();
+    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+    startActivity(intent);
   }
 }

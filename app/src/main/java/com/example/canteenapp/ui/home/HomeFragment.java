@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -21,11 +20,9 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.canteenapp.AdminPanel;
 import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
 import com.example.canteenapp.constant.FireBaseConstant;
-import com.example.canteenapp.ui.UserInfo.UserFragment;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -40,10 +37,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.net.InetAddress;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeFragment extends Fragment {
   private HomeViewModel homeViewModel;
@@ -279,7 +277,7 @@ public class HomeFragment extends Fragment {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
         if (snapshot.child("image").getValue() != null) {
-          Picasso.get().load(snapshot.child("image").getValue().toString()).into(homePageUserImage);
+            Picasso.get().load(snapshot.child("image").getValue().toString()).into(homePageUserImage);
         }
         homePageUserName.setText(snapshot.child("name").getValue().toString().split(" ")[0]+"!"+"\uD83D\uDC4B");
         welcomeText.setVisibility(View.VISIBLE);
@@ -302,7 +300,6 @@ public class HomeFragment extends Fragment {
             FirebaseRecyclerAdapter<Model, ViewHolderHome>(options) {
               @Override
               protected void onBindViewHolder(@NonNull final ViewHolderHome viewHolderHome, final int i, @NonNull final Model model) {
-
                 viewHolderHome.foodName.setText(model.getFoodName());
                 viewHolderHome.foodPrize.setText(model.getFoodPrize());
                 Picasso.get().load(model.getFoodPicture()).into(viewHolderHome.foodPicture);

@@ -8,10 +8,10 @@ import static com.example.canteenapp.constant.EmailConstant.USERNAME;
 
 import org.apache.commons.mail.DefaultAuthenticator;
 import org.apache.commons.mail.Email;
-import org.apache.commons.mail.EmailException;
 import org.apache.commons.mail.SimpleEmail;
 import org.ocpsoft.prettytime.PrettyTime;
 
+import java.net.InetAddress;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,13 +28,34 @@ public class CanteenUtil {
     return simpleDateFormat.format(calendar.getTime());
   }
 
+  public static boolean isInternetAvailable() {
+    try {
+      InetAddress ipAddr = InetAddress.getByName("google.com");
+      return !ipAddr.equals("");
+
+    } catch (Exception e) {
+      return false;
+    }
+  }
+  public static int getYearFromMilliSecond(long milliSeconds) {
+    Calendar c = Calendar.getInstance();
+    c.setTimeInMillis(milliSeconds);
+    return c.get(Calendar.YEAR);
+  }
+  public static  String getYearAndDayFromMilliSecond(long milliSeconds) {
+    Calendar c = Calendar.getInstance();
+    c.setTimeInMillis(milliSeconds);
+    return c.get(Calendar.YEAR)+" "+c.get(Calendar.DAY_OF_YEAR);
+  }
+
+
   public static String ConvertMilliSecondsToPrettyTime(long milliSeconds) {
     PrettyTime p = new PrettyTime();
     return p.format(new Date(milliSeconds));
   }
 
 
-  public static void sendMail(String message, String TO, String subject)  {
+  public static void sendMail(String message, String TO, String subject) {
     try {
       Email email = new SimpleEmail();
       email.setHostName(GOOGLE_SMTP_URL);
@@ -46,8 +67,7 @@ public class CanteenUtil {
       email.setMsg(message);
       email.addTo(TO);
       email.send();
-    }
-    catch (Exception e){
+    } catch (Exception e) {
       System.out.println(e);
     }
 

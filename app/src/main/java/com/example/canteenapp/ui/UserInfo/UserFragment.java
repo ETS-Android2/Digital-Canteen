@@ -7,8 +7,6 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.InputType;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +29,6 @@ import com.example.canteenapp.MainActivity;
 import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
 import com.example.canteenapp.constant.FireBaseConstant;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -44,6 +40,11 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
+
+import java.net.InetAddress;
+import java.net.URL;
+import java.net.URLConnection;
+import java.text.DecimalFormat;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -65,6 +66,7 @@ public class UserFragment extends Fragment {
   ImageView cameraIcon;
   CardView cardView;
   ProgressBar progressBar;
+  private static final DecimalFormat df = new DecimalFormat("0.00");
 
 
   public View onCreateView(@NonNull LayoutInflater inflater,
@@ -128,7 +130,8 @@ public class UserFragment extends Fragment {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
           databaseReference.child("email").setValue(v2.getText().toString());
           user.updateEmail(v2.getText().toString())
-                  .addOnCompleteListener(task -> {});
+                  .addOnCompleteListener(task -> {
+                  });
           email.setVisibility(View.VISIBLE);
           editUserSectionEmail.setVisibility(View.GONE);
           InputMethodManager imm = (InputMethodManager) getContext().getSystemService(Activity.INPUT_METHOD_SERVICE);
@@ -236,9 +239,9 @@ public class UserFragment extends Fragment {
             if (snapshot.getValue() != null) {
               if (snapshot.hasChild(userID)) {
                 String userT = snapshot.child(userID).getValue().toString();
-                String weeklyExpensesText = String.valueOf(Integer.parseInt(userT) / 7);
-                String monthlyExpensesText = String.valueOf(Integer.parseInt(userT) / 30);
-                String yearlyExpensesText = String.valueOf(Integer.parseInt(userT) / 365);
+                String weeklyExpensesText = df.format(Float.parseFloat(userT) / 52);
+                String monthlyExpensesText = df.format(Float.parseFloat(userT) / 12);
+                String yearlyExpensesText = String.valueOf(Integer.parseInt(userT));
                 weeklyExpenses.setText("Rs." + weeklyExpensesText);
                 monthlyExpenses.setText("Rs." + monthlyExpensesText);
                 yearlyExpenses.setText("Rs." + yearlyExpensesText);

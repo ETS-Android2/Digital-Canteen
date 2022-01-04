@@ -10,6 +10,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.net.InetAddress;
+import java.net.URL;
+import java.net.URLConnection;
+
 public class NoInternet extends AppCompatActivity {
   Button checkInternet;
   @Override
