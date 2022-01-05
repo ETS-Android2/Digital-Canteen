@@ -41,10 +41,8 @@ import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
 
-import java.net.InetAddress;
-import java.net.URL;
-import java.net.URLConnection;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -66,6 +64,7 @@ public class UserFragment extends Fragment {
   ImageView cameraIcon;
   CardView cardView;
   ProgressBar progressBar;
+  NumberFormat nf = NumberFormat.getInstance();
   private static final DecimalFormat df = new DecimalFormat("0.00");
 
 
@@ -239,12 +238,9 @@ public class UserFragment extends Fragment {
             if (snapshot.getValue() != null) {
               if (snapshot.hasChild(userID)) {
                 String userT = snapshot.child(userID).getValue().toString();
-                String weeklyExpensesText = df.format(Float.parseFloat(userT) / 52);
-                String monthlyExpensesText = df.format(Float.parseFloat(userT) / 12);
-                String yearlyExpensesText = String.valueOf(Integer.parseInt(userT));
-                weeklyExpenses.setText("Rs." + weeklyExpensesText);
-                monthlyExpenses.setText("Rs." + monthlyExpensesText);
-                yearlyExpenses.setText("Rs." + yearlyExpensesText);
+                weeklyExpenses.setText("Rs." + nf.format(Float.parseFloat(df.format(Float.parseFloat(userT) / 52))));
+                monthlyExpenses.setText("Rs." + nf.format(Float.parseFloat(df.format(Float.parseFloat(userT) / 12))));
+                yearlyExpenses.setText("Rs." + nf.format(Float.parseFloat(df.format(Float.parseFloat(userT)))));
               }
             }
           }

@@ -2,98 +2,379 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
+    <RelativeLayout
+        android:layout_margin="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_margin="12dp"
+        <ImageView
+            android:id="@+id/logoAdminPanel"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:src="@mipmap/logo" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dp"
+            android:layout_toRightOf="@+id/logoAdminPanel"
+            android:textColor="@color/textSecondaryColor"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="Digital Canteen"
+            android:textSize="18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="12dp"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="Hey ,Admin 👋"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="16dp" />
+
+
+
+    </RelativeLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="Admin Panel"
-        android:fontFamily="@font/poppinsmedium"
-        android:textColor="@color/textPrimaryColor"
-        android:textSize="16dp"
-    />
+        android:layout_margin="8dp"
+        android:orientation="vertical"
+        android:padding="8dp">
 
-   <LinearLayout
-       android:orientation="vertical"
-       android:layout_margin="12dp"
-       android:layout_width="match_parent"
-       android:layout_height="match_parent">
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="50dp"
-           android:orientation="horizontal">
+        <TextView
 
-           <ImageView
-               android:id="@+id/adduser"
-               android:layout_width="200dp"
-               android:layout_height="200dp"
-               android:src="@mipmap/adduser" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsmedium"
+            android:text="Today's Income "
+            android:textAlignment="center"
+            android:textColor="@color/textSecondaryColor"
+            android:textSize="18dp" />
 
-           <ImageView
-               android:id="@+id/addfood"
-               android:layout_width="200dp"
-               android:layout_height="200dp"
-               android:src="@mipmap/addfood" />
-       </LinearLayout>
+        <TextView
+            android:id="@+id/adminPanelTotalAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppinsbold"
+            android:text="Rs.418419814"
+            android:textAlignment="center"
+            android:textColor="@color/textPrimaryColor"
+            android:textSize="30dp" />
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+    </LinearLayout>
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="50dp"
-               android:text="Add user"
-               android:textSize="24dp" />
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="100dp"
-               android:text="Add food"
-               android:textSize="24dp" />
-       </LinearLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/viewOrderLogoCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:padding="8dp"
+            app:cardCornerRadius="25dp">
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/viewOrderLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="8dp"
+                android:src="@mipmap/view_order_logo" />
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:layout_marginTop="50dp"
-           android:orientation="horizontal">
+                <TextView
+                    android:id="@+id/logoAdminPanelText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_toRightOf="@+id/viewOrderLogo"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="Order"
+                    android:textAlignment="center"
+                    android:textColor="@color/textPrimaryColor"
+                    android:textSize="18dp" />
 
-           <ImageView
-               android:id="@+id/order"
-               android:layout_width="200dp"
-               android:layout_height="200dp"
-               android:src="@mipmap/order"></ImageView>
+                <ImageView
+                    android:id="@+id/viewOrderLogoLine"
+                    android:layout_marginLeft="8dp"
+                    android:layout_toRightOf="@+id/viewOrderLogo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/logoAdminPanelText"
+                    android:src="@drawable/horizantle_line" />
 
-           <ImageView
-               android:id="@+id/history"
-               android:layout_width="200dp"
-               android:layout_height="200dp"
-               android:src="@mipmap/history"></ImageView>
-       </LinearLayout>
+                <TextView
+                    android:layout_below="@id/viewOrderLogoLine"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_toRightOf="@+id/viewOrderLogo"
+                    android:fontFamily="@font/poppinsmedium"
+                    android:text="Help's you to view of order for the day"
+                    android:textAlignment="center"
+                    android:textColor="@color/textSecondaryColor"
+                    android:textSize="12dp" />
+        </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/addFoodLogoCard"
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        app:cardCornerRadius="25dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/addFoodLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="8dp"
+                android:src="@mipmap/add_food_logo" />
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="50dp"
-               android:text="Order"
-               android:textSize="24dp" />
+            <TextView
+                android:id="@+id/addFoodLogoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toRightOf="@+id/addFoodLogo"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Food"
+                android:textAlignment="center"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="18dp" />
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:layout_marginLeft="140dp"
-               android:text="History"
-               android:textSize="24dp" />
-       </LinearLayout>
-   </LinearLayout>
+            <ImageView
+                android:id="@+id/addFoodLogoLine"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/addFoodLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addFoodLogoText"
+                android:src="@drawable/horizantle_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addFoodLogoLine"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_toRightOf="@+id/addFoodLogo"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Help's you to add new food for the users"
+                android:textAlignment="center"
+                android:textColor="@color/textSecondaryColor"
+                android:textSize="12dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/addUserLogoCard"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        app:cardCornerRadius="25dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/addUserLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="8dp"
+                android:src="@mipmap/add_user_logo" />
+
+            <TextView
+                android:id="@+id/addUserLogoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toRightOf="@+id/addUserLogo"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="User"
+                android:textAlignment="center"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/addUserLogoLine"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/addUserLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addUserLogoText"
+                android:src="@drawable/horizantle_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/addUserLogoLine"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_toRightOf="@+id/addUserLogo"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Help's you add new user to system"
+                android:textAlignment="center"
+                android:textColor="@color/textSecondaryColor"
+                android:textSize="12dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/logLogoCard"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        app:cardCornerRadius="25dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/logLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="8dp"
+                android:src="@mipmap/log_logo" />
+
+            <TextView
+                android:id="@+id/logLogoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toRightOf="@+id/logLogo"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Log"
+                android:textAlignment="center"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/logLogoLine"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/logLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/logLogoText"
+                android:src="@drawable/horizantle_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/logLogoLine"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_toRightOf="@+id/logLogo"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Help's you look for log of the day"
+                android:textAlignment="center"
+                android:textColor="@color/textSecondaryColor"
+                android:textSize="12dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/analysisLogoCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        app:cardCornerRadius="25dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/analysisLogo"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:src="@mipmap/analysis_logo" />
+
+            <TextView
+                android:id="@+id/analysisLogoText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_toRightOf="@+id/analysisLogo"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Analysis"
+                android:textAlignment="center"
+                android:textColor="@color/textPrimaryColor"
+                android:textSize="18dp" />
+
+            <ImageView
+                android:id="@+id/analysisLogoLine"
+                android:layout_marginLeft="8dp"
+                android:layout_toRightOf="@+id/analysisLogo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/analysisLogoText"
+                android:src="@drawable/horizantle_line" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/analysisLogoLine"
+                android:layout_gravity="center"
+                android:layout_marginStart="8dp"
+                android:layout_toRightOf="@+id/analysisLogo"
+                android:fontFamily="@font/poppinsmedium"
+                android:text="Help's you analysis your business"
+                android:textAlignment="center"
+                android:textColor="@color/textSecondaryColor"
+                android:textSize="12dp" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+
+
+
+
 </LinearLayout>

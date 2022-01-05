@@ -9,13 +9,9 @@
     android:orientation="vertical"
     tools:context=".ui.dashboard.DashboardFragment">
 
-    <ProgressBar
-        android:id="@+id/dashprogess"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="10dp"
-        android:visibility="gone" />
+
     <TextView
+        android:layout_gravity="center"
         android:layout_margin="8dp"
         android:textColor="@color/textPrimaryColor"
         android:layout_width="wrap_content"
@@ -24,6 +20,13 @@
         android:textSize="16dp"
         android:text="Dashboard"
         />
+    <ProgressBar
+        android:layout_gravity="center"
+        android:id="@+id/dashprogess"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:visibility="gone" />
     <androidx.cardview.widget.CardView
         android:id="@+id/dashcard"
         android:layout_width="match_parent"
@@ -189,6 +192,8 @@
                     android:id="@+id/cancle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_margin="2dp"
+
                     android:background="@drawable/rounded_rectangele"
                     android:fontFamily="@font/poppinsmedium"
                     android:text="Cancel"
@@ -196,6 +201,7 @@
 
 
                 <Button
+                    android:layout_margin="2dp"
                     android:id="@+id/pay"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

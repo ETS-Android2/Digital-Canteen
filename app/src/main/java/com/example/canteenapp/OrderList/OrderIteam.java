@@ -1,5 +1,6 @@
 package com.example.canteenapp.OrderList;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.canteenapp.AdminPanel;
 import com.example.canteenapp.R;
 import com.example.canteenapp.Util.CanteenUtil;
 import com.example.canteenapp.constant.FireBaseConstant;
@@ -199,5 +201,13 @@ public class OrderIteam extends AppCompatActivity {
     recyclerView.setItemViewCacheSize(900);
     firebaseRecyclerAdapter.notifyDataSetChanged();
     recyclerView.setAdapter(firebaseRecyclerAdapter);
+  }
+
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
+    finishAffinity();
+    Intent intent = new Intent(getApplicationContext(), AdminPanel.class);
+    startActivity(intent);
   }
 }

@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.canteenapp.AdminPanel;
 import com.example.canteenapp.MainActivity;
 import com.example.canteenapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -107,5 +108,12 @@ public class Registration extends AppCompatActivity {
             }
         });
 
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+        Intent intent = new Intent(getApplicationContext(), AdminPanel.class);
+        startActivity(intent);
     }
 }

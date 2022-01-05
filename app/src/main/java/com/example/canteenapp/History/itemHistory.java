@@ -1,5 +1,6 @@
 package com.example.canteenapp.History;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.canteenapp.AdminPanel;
 import com.example.canteenapp.R;
 import com.example.canteenapp.Util.CanteenUtil;
 import com.example.canteenapp.constant.CanteenConstant;
@@ -124,6 +126,12 @@ public class itemHistory extends AppCompatActivity {
     recyclerViewHistory.setItemViewCacheSize(900);
     recyclerViewHistory.setAdapter(firebaseRecyclerAdapter);
   }
-
+  @Override
+  public void onBackPressed() {
+    super.onBackPressed();
+    finishAffinity();
+    Intent intent = new Intent(getApplicationContext(), AdminPanel.class);
+    startActivity(intent);
+  }
 
 }

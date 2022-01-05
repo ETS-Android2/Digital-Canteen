@@ -43,7 +43,7 @@ public class AdminFilterPage extends AppCompatActivity {
 
     anyChartView.setProgressBar(findViewById(R.id.progressBarAdminFilter));
     firebaseDatabase = FirebaseDatabase.getInstance();
-    databaseReferenceMasterRecord = firebaseDatabase.getReference().child(FireBaseConstant.HISTORY);
+    databaseReferenceMasterRecord = firebaseDatabase.getReference().child(FireBaseConstant.MASTER_RECORD);
     databaseReferenceMasterRecord.addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -111,28 +111,6 @@ public class AdminFilterPage extends AppCompatActivity {
             .align(Align.CENTER);
     anyChartView.setChart(pie);
 
-//    List<DataEntry> data = new ArrayList<>();
-//    data.add(new ValueDataEntry("Apples", 6371664));
-//    data.add(new ValueDataEntry("Pears", 789622));
-//    data.add(new ValueDataEntry("Bananas", 7216301));
-//    data.add(new ValueDataEntry("Grapes", 1486621));
-//    data.add(new ValueDataEntry("Oranges", 1200000));
-//    for (DataEntry dataEntry:data
-//         ) {
-//      System.out.println(dataEntry);
-//    }
-//    Pie pie2 = AnyChart.pie();
-//
-//    pie2.data(data);
-//    pie2.title("Fruits imported in 2015 (in kg)");
-//
-//
-//    pie2.legend()
-//            .position("center-bottom")
-//            .itemsLayout(LegendLayout.HORIZONTAL)
-//            .align(Align.CENTER);
-//
-//    anyChartView.setChart(pie2);
   }
 
 
@@ -140,8 +118,9 @@ public class AdminFilterPage extends AppCompatActivity {
   public void onBackPressed() {
     super.onBackPressed();
     finishAffinity();
-
     LIST_ID = 01;
     foodNameAndCount = new ArrayList<>();
+    Intent intent = new Intent(getApplicationContext(), AdminPanel.class);
+    startActivity(intent);
   }
 }

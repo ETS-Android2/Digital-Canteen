@@ -259,12 +259,8 @@ public class DashboardFragment extends Fragment {
 
 
   public boolean isInternetAvailable() {
-    try {
-      InetAddress ipAddr = InetAddress.getByName("google.com");
-      return !ipAddr.equals("");
-
-    } catch (Exception e) {
-      return false;
-    }
+    ConnectivityManager connectivityManager = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+    return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+            connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
   }
 }

@@ -49,10 +49,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:textAlignment="textStart"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/poppinssemibold"
-                    android:gravity="center"
-                    android:text="Momfo"
+                    android:text=""
                     android:textColor="@color/textPrimaryColor"
                     android:textSize="18dp" />
 

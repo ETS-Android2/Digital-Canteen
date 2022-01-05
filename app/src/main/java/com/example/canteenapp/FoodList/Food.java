@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.canteenapp.AdminPanel;
 import com.example.canteenapp.R;
 import com.example.canteenapp.constant.CanteenConstant;
 import com.example.canteenapp.constant.FireBaseConstant;
@@ -123,5 +125,11 @@ public class Food extends AppCompatActivity {
         firebaseRecyclerAdapter.notifyDataSetChanged();
         recyclerView.setAdapter(firebaseRecyclerAdapter);
     }
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finishAffinity();
+        Intent intent = new Intent(getApplicationContext(), AdminPanel.class);
+        startActivity(intent);
+    }
 }
