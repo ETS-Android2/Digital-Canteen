@@ -66,7 +66,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_marginTop="10dp"
                         android:fontFamily="@font/poppinsmedium"
-                        android:text=" Rs."
+                        android:text="@string/rs"
                         android:textColor="@color/textPrimaryColor"
                         android:textSize="24dp" />
 
@@ -93,7 +93,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/rounded_rectangele"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="REMOVE"
+                    android:text="@string/remove"
                     android:textColor="@color/white" />
 
 

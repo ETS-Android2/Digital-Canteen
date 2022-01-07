@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,26 +19,20 @@ import com.example.canteenapp.constant.CanteenConstant;
 import com.example.canteenapp.constant.FireBaseConstant;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class itemHistory extends AppCompatActivity {
   FirebaseDatabase firebaseDatabase;
-  TextView netIncomeText;
   DatabaseReference databaseReference, databaseReference2;
   RecyclerView recyclerViewHistory;
   FirebaseDatabase firebaseDatabase1;
   DatabaseReference databaseReference1;
-  int netIncome = 0;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_iteam_history);
-    netIncomeText = findViewById(R.id.netincome);
     firebaseDatabase = FirebaseDatabase.getInstance();
     databaseReference = firebaseDatabase.getReference(FireBaseConstant.HISTORY);
     firebaseDatabase1 = FirebaseDatabase.getInstance();
@@ -51,34 +44,6 @@ public class itemHistory extends AppCompatActivity {
     layoutManager.setReverseLayout(true);
     layoutManager.setStackFromEnd(true);
     recyclerViewHistory.setLayoutManager(layoutManager);
-
-    databaseReference1.addListenerForSingleValueEvent(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot snapshot) {
-        if (snapshot.getValue() != null) {
-          netIncome = 0;
-          for (DataSnapshot s : snapshot.getChildren()) {
-            if (CanteenUtil.getYearAndDayFromMilliSecond(System.currentTimeMillis()).equals(CanteenUtil.getYearAndDayFromMilliSecond(Long.parseLong(s.child("time").getValue().toString())))) {
-              HistoryModel historyModel = s.getValue(HistoryModel.class);
-              if (null != historyModel && historyModel.getComment().contains(CanteenConstant.ADMIN)) {
-                netIncome = netIncome + Integer.parseInt(historyModel.getTotal());
-              }
-            } else {
-              databaseReference1.child(s.getKey()).removeValue();
-            }
-          }
-          netIncomeText.setText(String.valueOf(netIncome));
-          databaseReference1.removeEventListener(this);
-        }
-        databaseReference1.removeEventListener(this);
-      }
-
-      @Override
-      public void onCancelled(@NonNull DatabaseError error) {
-        databaseReference1.removeEventListener(this);
-      }
-    });
-
   }
 
   @Override
@@ -126,6 +91,7 @@ public class itemHistory extends AppCompatActivity {
     recyclerViewHistory.setItemViewCacheSize(900);
     recyclerViewHistory.setAdapter(firebaseRecyclerAdapter);
   }
+
   @Override
   public void onBackPressed() {
     super.onBackPressed();

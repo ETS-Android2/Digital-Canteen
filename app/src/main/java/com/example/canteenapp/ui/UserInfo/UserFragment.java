@@ -241,6 +241,7 @@ public class UserFragment extends Fragment {
                 weeklyExpenses.setText("Rs." + nf.format(Float.parseFloat(df.format(Float.parseFloat(userT) / 52))));
                 monthlyExpenses.setText("Rs." + nf.format(Float.parseFloat(df.format(Float.parseFloat(userT) / 12))));
                 yearlyExpenses.setText("Rs." + nf.format(Float.parseFloat(df.format(Float.parseFloat(userT)))));
+
               }
             }
           }

@@ -20,7 +20,7 @@
         android:background="@drawable/rounded_rectangele"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
-        android:text="Check Again"/>
+        android:text="@string/check_again"/>
 
 
 </LinearLayout>

@@ -46,11 +46,11 @@ public class DashboardFragment extends Fragment {
   FirebaseAuth firebaseAuth;
   FirebaseUser user;
   List<String> userIdList = new ArrayList();
-  String userID, id, hitText = "";
+  String userID, id;
   String username, foodname, foodcount, foodprize, total;
   Button cancel;
   Button pay;
-  TextView dashName, dashQuantity, dashPrize, dashTotal, tokenuser, hititems, orderredytext, turn, timeDash;
+  TextView dashName, dashQuantity, dashPrize, dashTotal, tokenuser, orderredytext, turn, timeDash;
   CardView dashcard;
   ProgressBar dashprogess;
   long maxid = 0, time;
@@ -66,7 +66,6 @@ public class DashboardFragment extends Fragment {
     userID = user.getUid();
     dashprogess = root.findViewById(R.id.dashprogess);
     dashprogess.setVisibility(View.VISIBLE);
-    hititems = root.findViewById(R.id.hititems);
     turn = root.findViewById(R.id.turn);
     dashName = root.findViewById(R.id.dashfoodname);
     dashQuantity = root.findViewById(R.id.dashquantity);
@@ -81,46 +80,8 @@ public class DashboardFragment extends Fragment {
     databaseReferencehistory = firebaseDatabase.getReference(FireBaseConstant.HISTORY);
     databaseReference10 = firebaseDatabase.getReference(FireBaseConstant.CONFIRMED);
     databaseReference4 = firebaseDatabase.getReference(FireBaseConstant.TODAYS_HITS);
-    databaseReference4.addValueEventListener(new ValueEventListener() {
-      @Override
-      public void onDataChange(@NonNull DataSnapshot snapshot) {
-        if (snapshot.getValue() != null) {
-          String a = snapshot.getValue().toString();
-          a = a.replace("{", "");
-          a = a.replace("}", "");
-          String[] aa = a.split(",");
-          if (aa.length != 1) {
-            for (int j = 0; j < aa.length; j++) {
-              for (int i = 0; i < aa.length; i++) {
-                int num1 = Integer.parseInt(aa[j].substring(aa[j].indexOf("=") + 1));
-                int num2 = Integer.parseInt(aa[i].substring(aa[i].indexOf("=") + 1));
-                if (num1 >= num2) {
-                  String temp = aa[i];
-                  aa[i] = aa[j];
-                  aa[j] = temp;
-                }
-              }
-            }
-            int count = 0;
-
-            for (String ikkk : aa) {
-              hitText = hitText + aa[count].replace("=", " = ") + "\n\n";
-              count++;
-            }
-          } else {
-            hitText = a;
-            hititems.setText(hitText);
-          }
-          hititems.setText(hitText);
-        }
-      }
-
-      @Override
-      public void onCancelled(@NonNull DatabaseError error) {
-
-      }
-    });
     pay = root.findViewById(R.id.pay);
+
     pay.setOnClickListener(v -> {
       String url = "https://esewa.com.np/#/home";
       Intent i = new Intent(Intent.ACTION_VIEW);

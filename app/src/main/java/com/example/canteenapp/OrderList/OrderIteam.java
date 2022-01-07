@@ -50,8 +50,6 @@ public class OrderIteam extends AppCompatActivity {
     databaseReferenceMasterRecord = firebaseDatabase.getReference().child(FireBaseConstant.MASTER_RECORD);
     title=findViewById(R.id.orderItemTitle);
     shimmerFrameLayout=findViewById(R.id.orderIteamShimmerLayout);
-    shimmerFrameLayout.startShimmerAnimation();
-    title.setVisibility(View.GONE);
 
     databaseReference2.addValueEventListener(new ValueEventListener() {
       @Override
@@ -78,6 +76,8 @@ public class OrderIteam extends AppCompatActivity {
   @Override
   public void onStart() {
     super.onStart();
+    shimmerFrameLayout.startShimmerAnimation();
+    title.setVisibility(View.GONE);
     final FirebaseRecyclerOptions options = new FirebaseRecyclerOptions.Builder<ModelOrder>().setQuery(databaseReference, ModelOrder.class).build();
     firebaseRecyclerAdapter = new
             FirebaseRecyclerAdapter<ModelOrder, OrderViewHolder>(options) {

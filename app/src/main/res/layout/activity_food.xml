@@ -26,7 +26,7 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsmedium"
-            android:hint="Foodname"
+            android:hint="@string/foodname"
             android:textColor="@color/appBlack"
             android:textColorHint="@color/appBlack"
             android:textSize="24sp" />
@@ -39,7 +39,7 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsmedium"
-            android:hint="Foodprize"
+            android:hint="@string/foodprize"
             android:textColor="@color/appBlack"
             android:textColorHint="@color/appBlack"
             android:textSize="24sp" />
@@ -52,7 +52,7 @@
             android:layout_centerInParent="true"
             android:layout_marginTop="10dp"
             android:fontFamily="@font/poppinsmedium"
-            android:hint="FoodpictureURL"
+            android:hint="@string/foodpictureurl"
             android:textColor="@color/appBlack"
             android:textColorHint="@color/appBlack"
             android:textSize="24sp" />
@@ -66,7 +66,7 @@
             android:layout_marginBottom="10dp"
             android:background="@drawable/rounded_rectangele"
             android:fontFamily="@font/poppinsmedium"
-            android:text="DONE"
+            android:text="@string/done"
             android:textColor="@color/white" />
     </RelativeLayout>
     <Button
@@ -79,5 +79,5 @@
         android:layout_alignParentBottom="true"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:text="ADD NEW FOOD"></Button>
+        android:text="@string/add_new_food"></Button>
 </RelativeLayout>

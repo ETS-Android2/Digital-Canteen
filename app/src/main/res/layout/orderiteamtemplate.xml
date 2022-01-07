@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="TOKEN NO : "
+                    android:text="@string/token_no"
                     android:textColor="@color/green"
                     android:textSize="12dp" />
 
@@ -66,7 +66,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="8dp"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="fasdfasdfasdfasfasdf"
+                    android:text=""
                     android:textColor="@color/textPrimaryColor"
                     android:textSize="12dp" />
 
@@ -75,7 +75,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:text="fasdfasdsdafdf"
+                    android:text=""
                     android:textColor="#000000"
                     android:textSize="12dp" />
 
@@ -138,7 +138,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="4"
                     android:fontFamily="@font/poppinsbold"
-                    android:text="Total Amount"
+                    android:text="@string/total_amount"
                     android:textColor="@color/textPrimaryColor"
                     android:textSize="18dp" />
 
@@ -149,7 +149,7 @@
                     android:layout_toLeftOf="@id/totalprizeorder"
                     android:layout_weight="0.1"
                     android:fontFamily="@font/poppinsbold"
-                    android:text="Rs."
+                    android:text="@string/rs"
                     android:textAlignment="textEnd"
                     android:textColor="@color/textPrimaryColor"
                     android:textSize="18dp" />
@@ -184,7 +184,7 @@
                     android:layout_marginLeft="10dp"
                     android:background="@drawable/rounded_rectangele"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="DONE"
+                    android:text="@string/done"
                     android:textColor="#FFFFFF" />
 
                 <Button
@@ -194,7 +194,7 @@
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/rounded_rectangele"
                     android:fontFamily="@font/poppinsmedium"
-                    android:text="Ready"
+                    android:text="@string/ready"
                     android:textColor="#FFFFFF" />
 
                 <Button
@@ -203,7 +203,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:background="@drawable/rounded_rectangele"
-                    android:text="Cancel"
+                    android:text="@string/cancel"
                     android:textColor="#FFFFFF" />
             </LinearLayout>
 

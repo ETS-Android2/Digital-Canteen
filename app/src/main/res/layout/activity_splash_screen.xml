@@ -29,7 +29,7 @@
                 android:layout_gravity="center_horizontal"
                 android:fontFamily="@font/poppinsbold"
                 android:shadowColor="@color/white"
-                android:text="Digital Canteen"
+                android:text="@string/digital_canteen"
                 android:textAlignment="center"
                 android:textColor="@color/textPrimaryColor"
                 android:textSize="30sp" />
