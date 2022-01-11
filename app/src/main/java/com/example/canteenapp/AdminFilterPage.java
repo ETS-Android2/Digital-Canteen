@@ -30,7 +30,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -40,8 +39,8 @@ import java.util.Map;
 public class AdminFilterPage extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
   DatabaseReference databaseReferenceMasterRecord;
   FirebaseDatabase firebaseDatabase;
-   List<DataEntry> foodNameAndCount = new ArrayList<>();
-   Map<String, Integer> map = new HashMap<>();
+  List<DataEntry> foodNameAndCount = new ArrayList<>();
+  Map<String, Integer> map = new HashMap<>();
   AnyChartView anyChartView;
   Button buttonStart, buttonEnd, buttonDateInBetween;
   private int BUTTON_ID = 00;

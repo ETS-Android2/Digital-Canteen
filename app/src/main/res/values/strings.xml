@@ -40,7 +40,9 @@
     <string name="log">Log</string>
     <string name="help_s_you_look_for_log_of_the_day">Help\'s you look for log of the day</string>
     <string name="analysis">Analysis</string>
+    <string name="qr">QR scan</string>
     <string name="help_s_you_analysis_your_business">Help\'s you analysis your business</string>
+    <string name="help_s_you_scan_qr_for_order">Help\'s you to easily scan order with QR code</string>
     <string name="your_basket">Your Basket</string>
     <string name="total_amount">Total Amount</string>
     <string name="confirm_order">CONFIRM ORDER</string>
@@ -62,4 +64,5 @@
     <string name="rs_0">Rs.0</string>
     <string name="_0">0</string>
     <string name="ready">Ready</string>
+    <string name="scan_this_code_to_process_you_order">Scan this code to process you order</string>
 </resources>

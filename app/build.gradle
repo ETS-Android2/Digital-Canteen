@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.canteenapp"
-        minSdkVersion 19
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -58,6 +58,10 @@ dependencies {
     implementation group: 'org.apache.commons', name: 'commons-email', version: '1.5'
     implementation 'com.github.AnyChart:AnyChart-Android:1.1.2'
     implementation 'androidx.multidex:multidex:2.0.1'  //with androidx libraries
+    implementation 'androidmads.library.qrgenearator:QRGenearator:1.0.4'
+    implementation 'com.google.zxing:core:3.3.2'
+    implementation 'commons-codec:commons-codec:1.15'
+    implementation 'com.budiyev.android:code-scanner:2.1.0'
 
 }
 apply plugin: 'com.google.gms.google-services'

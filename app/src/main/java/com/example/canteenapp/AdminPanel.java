@@ -1,12 +1,16 @@
 package com.example.canteenapp;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.example.canteenapp.FoodList.Food;
 import com.example.canteenapp.History.HistoryModel;
@@ -26,7 +30,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class AdminPanel extends AppCompatActivity {
-  CardView viewOderCard, addUserCard, addFoodCard, viewLogCard, viewAnalysisCard;
+  CardView viewOderCard, addUserCard, addFoodCard, viewLogCard, viewAnalysisCard,qrLogoCard,algoLogoCard;
   DatabaseReference databaseReference;
   FirebaseDatabase firebaseDatabase;
   TextView adminPanelTotalAmount;
@@ -41,12 +45,18 @@ public class AdminPanel extends AppCompatActivity {
     addUserCard = findViewById(R.id.addUserLogoCard);
     addFoodCard = findViewById(R.id.addFoodLogoCard);
     viewLogCard = findViewById(R.id.logLogoCard);
+    qrLogoCard=findViewById(R.id.QRLogoCard);
+    algoLogoCard=findViewById(R.id.AlgoLogoCard);
     viewAnalysisCard = findViewById(R.id.analysisLogoCard);
     firebaseDatabase = FirebaseDatabase.getInstance();
     databaseReference = firebaseDatabase.getReference(FireBaseConstant.HISTORY);
     adminPanelTotalAmount = findViewById(R.id.adminPanelTotalAmount);
 
+    if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
+            == PackageManager.PERMISSION_DENIED){
+      ActivityCompat.requestPermissions(AdminPanel.this, new String[] {Manifest.permission.CAMERA}, 1);
 
+    }
     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -95,7 +105,14 @@ public class AdminPanel extends AppCompatActivity {
       startActivity(intent);
     });
 
-
+    qrLogoCard.setOnClickListener(v -> {
+      Intent intent = new Intent(getApplicationContext(), QrCamera.class);
+      startActivity(intent);
+    });
+    algoLogoCard.setOnClickListener(v -> {
+      Intent intent = new Intent(getApplicationContext(), AdminAlgorithm.class);
+      startActivity(intent);
+    });
   }
 
   @Override

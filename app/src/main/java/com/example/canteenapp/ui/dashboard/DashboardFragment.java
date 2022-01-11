@@ -1,18 +1,26 @@
 package com.example.canteenapp.ui.dashboard;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -22,6 +30,7 @@ import androidx.fragment.app.Fragment;
 import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
 import com.example.canteenapp.Util.CanteenUtil;
+import com.example.canteenapp.constant.CanteenConstant;
 import com.example.canteenapp.constant.FireBaseConstant;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -31,11 +40,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.net.InetAddress;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
+
+import androidmads.library.qrgenearator.QRGContents;
+import androidmads.library.qrgenearator.QRGEncoder;
+import org.apache.commons.codec.binary.Base64;
+
 
 public class DashboardFragment extends Fragment {
 
@@ -50,11 +61,14 @@ public class DashboardFragment extends Fragment {
   String username, foodname, foodcount, foodprize, total;
   Button cancel;
   Button pay;
-  TextView dashName, dashQuantity, dashPrize, dashTotal, tokenuser, orderredytext, turn, timeDash;
+  TextView dashName, dashQuantity, dashPrize, dashTotal, tokenuser, orderredytext, turn, timeDash, tokenNoOfQrCode;
   CardView dashcard;
   ProgressBar dashprogess;
+  private QRGEncoder qrgEncoder;
+  private Bitmap bitmap;
   long maxid = 0, time;
-  public static int STATUS = 01;
+  int lineNo;
+
 
   public View onCreateView(@NonNull LayoutInflater inflater,
                            ViewGroup container, Bundle savedInstanceState) {
@@ -76,11 +90,58 @@ public class DashboardFragment extends Fragment {
     cancel = root.findViewById(R.id.cancle);
     dashcard = root.findViewById(R.id.dashcard);
     tokenuser = root.findViewById(R.id.tokenuser);
+    tokenNoOfQrCode = root.findViewById(R.id.tokenNoOfQrCode);
     firebaseDatabase = FirebaseDatabase.getInstance();
     databaseReferencehistory = firebaseDatabase.getReference(FireBaseConstant.HISTORY);
     databaseReference10 = firebaseDatabase.getReference(FireBaseConstant.CONFIRMED);
     databaseReference4 = firebaseDatabase.getReference(FireBaseConstant.TODAYS_HITS);
     pay = root.findViewById(R.id.pay);
+
+
+
+
+
+//DASH ON CLICK
+    dashcard.setOnClickListener(v -> {
+      String inputValue = CanteenConstant.SALT+userID+CanteenConstant.DIGTIAL_CANTEEN+lineNo+CanteenConstant.SALT;
+      byte[] bytesEncoded = Base64.encodeBase64(inputValue.getBytes());
+      inputValue=new String(bytesEncoded);
+      if (inputValue.length() > 0) {
+        WindowManager manager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
+        Display display = manager.getDefaultDisplay();
+        Point point = new Point();
+        display.getSize(point);
+        int width = point.x;
+        int height = point.y;
+        int smallerDimension = Math.min(width, height);
+        smallerDimension = smallerDimension * 3 / 4;
+        qrgEncoder = new QRGEncoder(
+                inputValue, null,
+                QRGContents.Type.TEXT,
+                smallerDimension);
+        qrgEncoder.setColorBlack(Color.BLACK);
+        qrgEncoder.setColorWhite(Color.WHITE);
+        try {
+          final Dialog dialog=new Dialog(getContext());
+          dialog.setContentView(R.layout.qr_code_view_layout);
+          dialog.setCanceledOnTouchOutside(true);
+          dialog.setCancelable(true);
+          View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.qr_code_view_layout, root.findViewById(R.id.qrcodeLayout));
+          ImageView qrCodeImage =  bottomSheetView.findViewById(R.id.qrCodeImage);
+          TextView qrTokenNo= bottomSheetView.findViewById(R.id.tokenNoOfQrCode);
+          qrTokenNo.setText(String.valueOf(lineNo));
+          bitmap = qrgEncoder.getBitmap();
+          qrCodeImage.setImageBitmap(bitmap);
+          dialog.setContentView(bottomSheetView);
+          dialog.show();
+        } catch (Exception e) {
+          e.printStackTrace();
+        }
+      } else {
+        //TODO::what text value for qr is empty
+      }
+    });
+
 
     pay.setOnClickListener(v -> {
       String url = "https://esewa.com.np/#/home";
@@ -127,6 +188,7 @@ public class DashboardFragment extends Fragment {
                 dashPrize.setText(foodPrize);
                 dashTotal.setText(snapshot.child("total").getValue().toString());
                 tokenuser.setText(snapshot.child("userId").getValue().toString());
+                lineNo= Integer.parseInt(snapshot.child("userId").getValue().toString());
                 timeDash.setText(CanteenUtil.ConvertMilliSecondsToPrettyTime(Long.parseLong(snapshot.child("time").getValue().toString())));
 
                 if (snapshot.child(FireBaseConstant.NOTIFICATION_ID).exists()) {

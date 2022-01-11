@@ -28,10 +28,10 @@ import com.google.firebase.database.ValueEventListener;
 
 public class OrderIteam extends AppCompatActivity {
   private FirebaseDatabase firebaseDatabase;
-  private DatabaseReference databaseReference,databaseReferenceMasterRecord, databaseReference2, databaseReference4, databaseReference11, databaseReferenceCancleConfromOrder, databaseReferencesuser;
+  private DatabaseReference databaseReference,databaseReferenceMasterRecord, databaseReference2, databaseReference4, databaseReferenceCancleConfromOrder, databaseReferencesuser;
   RecyclerView recyclerView;
   FirebaseRecyclerAdapter<ModelOrder, OrderViewHolder> firebaseRecyclerAdapter;
-  long maxId = 0;
+  long maxId = 0,maxIdMaster=0;
   TextView  title;
   ShimmerFrameLayout shimmerFrameLayout;
 
@@ -43,14 +43,25 @@ public class OrderIteam extends AppCompatActivity {
     firebaseDatabase = FirebaseDatabase.getInstance();
     databaseReference = firebaseDatabase.getReference(FireBaseConstant.CONFIRMED);
     databaseReferenceCancleConfromOrder = firebaseDatabase.getReference(FireBaseConstant.CONFIRMED);
-    databaseReference11 = firebaseDatabase.getReference(FireBaseConstant.TODAYS_HITS);
     databaseReference4 = firebaseDatabase.getReference().child(FireBaseConstant.TOTAL_MONEY_OF_USER);
     databaseReference2 = firebaseDatabase.getReference(FireBaseConstant.HISTORY);
     databaseReferencesuser = firebaseDatabase.getReference().child(FireBaseConstant.USERS);
     databaseReferenceMasterRecord = firebaseDatabase.getReference().child(FireBaseConstant.MASTER_RECORD);
     title=findViewById(R.id.orderItemTitle);
     shimmerFrameLayout=findViewById(R.id.orderIteamShimmerLayout);
+    databaseReferenceMasterRecord.addValueEventListener(new ValueEventListener() {
+      @Override
+      public void onDataChange(@NonNull DataSnapshot snapshot) {
+        if (snapshot.exists()) {
+          maxIdMaster = snapshot.getChildrenCount();
+        }
+      }
 
+      @Override
+      public void onCancelled(@NonNull DatabaseError error) {
+
+      }
+    });
     databaseReference2.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -67,7 +78,7 @@ public class OrderIteam extends AppCompatActivity {
 
       }
     });
-    recyclerView = (RecyclerView) findViewById(R.id.recyclervireforiteam);
+    recyclerView = findViewById(R.id.recyclervireforiteam);
     recyclerView.setHasFixedSize(true);
     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
 
@@ -116,12 +127,12 @@ public class OrderIteam extends AppCompatActivity {
                 });
                 orderViewHolder.done.setOnClickListener(view -> {
                   databaseReferencesuser.child(modelorder.getUniqueId()).child("id").removeValue();
-                  databaseReferenceMasterRecord.child(String.valueOf(maxId + 1)).child("userName").setValue(modelorder.getName());
-                  databaseReferenceMasterRecord.child(String.valueOf(maxId + 1)).child("foodName").setValue(modelorder.getFoodName());
-                  databaseReferenceMasterRecord.child(String.valueOf(maxId + 1)).child("foodCount").setValue(modelorder.getFoodCount());
-                  databaseReferenceMasterRecord.child(String.valueOf(maxId + 1)).child("foodPrize").setValue(modelorder.getFoodPrize());
-                  databaseReferenceMasterRecord.child(String.valueOf(maxId + 1)).child("total").setValue(modelorder.getTotal());
-                  databaseReferenceMasterRecord.child(String.valueOf(maxId + 1)).child("time").setValue(modelorder.getTime());
+                  databaseReferenceMasterRecord.child(String.valueOf(maxIdMaster + 1)).child("userName").setValue(modelorder.getName());
+                  databaseReferenceMasterRecord.child(String.valueOf(maxIdMaster + 1)).child("foodName").setValue(modelorder.getFoodName());
+                  databaseReferenceMasterRecord.child(String.valueOf(maxIdMaster + 1)).child("foodCount").setValue(modelorder.getFoodCount());
+                  databaseReferenceMasterRecord.child(String.valueOf(maxIdMaster + 1)).child("foodPrize").setValue(modelorder.getFoodPrize());
+                  databaseReferenceMasterRecord.child(String.valueOf(maxIdMaster + 1)).child("total").setValue(modelorder.getTotal());
+                  databaseReferenceMasterRecord.child(String.valueOf(maxIdMaster + 1)).child("time").setValue(modelorder.getTime());
 
                   databaseReference2.child(String.valueOf(maxId + 1)).child("userName").setValue(modelorder.getName());
                   databaseReference2.child(String.valueOf(maxId + 1)).child("foodName").setValue(modelorder.getFoodName());
@@ -130,42 +141,6 @@ public class OrderIteam extends AppCompatActivity {
                   databaseReference2.child(String.valueOf(maxId + 1)).child("total").setValue(modelorder.getTotal());
                   databaseReference2.child(String.valueOf(maxId + 1)).child("time").setValue(modelorder.getTime());
                   databaseReference2.child(String.valueOf(maxId + 1)).child("comment").setValue("REMOVED BY ADMIN");
-                  String a = modelorder.getFoodName();
-                  String b = modelorder.getFoodCount();
-                  a = a.replaceAll("\n", ",");
-                  b = b.replaceAll("\n", ",");
-                  a = a.replaceFirst(",", "");
-                  b = b.replaceFirst(",", "");
-                  final String[] aa = a.split(",");
-                  final String[] bb = b.split(",");
-                  databaseReference11.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                      if (snapshot.getValue() != null) {
-                        int count = 0;
-                        for (String i1 : aa) {
-                          if (snapshot.child(aa[count]).exists()) {
-                            int value = Integer.parseInt(snapshot.child(aa[count]).getValue().toString());
-                            databaseReference11.child(aa[count]).setValue(Integer.parseInt(bb[count]) + value);
-                          } else {
-                            databaseReference11.child(aa[count]).setValue(bb[count]);
-                          }
-                          count++;
-                        }
-                      } else {
-                        int count = 0;
-                        for (String i1 : aa) {
-                          databaseReference11.child(aa[count]).setValue(bb[count]);
-                          count++;
-                        }
-                      }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                  });
 
                   databaseReference4.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override

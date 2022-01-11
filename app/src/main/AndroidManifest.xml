@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+
 
     <application
         android:allowBackup="true"
@@ -22,6 +24,14 @@
             android:theme="@style/WhiteWithBlack" />
         <activity
             android:name=".AdminFilterPage"
+            android:hardwareAccelerated="true"
+            android:theme="@style/WhiteWithBlack" />
+        <activity
+            android:name=".QrCamera"
+            android:hardwareAccelerated="true"
+            android:theme="@style/WhiteWithBlack" />
+        <activity
+            android:name=".AdminAlgorithm"
             android:hardwareAccelerated="true"
             android:theme="@style/WhiteWithBlack" />
         <activity
