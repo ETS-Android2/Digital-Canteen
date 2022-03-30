@@ -46,7 +46,7 @@ import java.util.Map;
 public class HomeFragment extends Fragment {
   private HomeViewModel homeViewModel;
   FirebaseDatabase firebaseDatabase, firebaseDatabase2;
-  DatabaseReference databaseReference, databaseReference2, databaseReference3, databaseReference4, databaseReference5,databaseReferenceUserNameAndPicture;
+  DatabaseReference databaseReference, databaseReference2, databaseReference3, databaseReference4, databaseReference5, databaseReferenceUserNameAndPicture;
   FirebaseAuth firebaseAuth;
   FirebaseUser user;
   ShimmerFrameLayout homepageShimmer;
@@ -55,7 +55,7 @@ public class HomeFragment extends Fragment {
   String userID, content, a;
   String username;
   String foodname, foodprize, foodcount;
-  RelativeLayout homePageMainLayout,welcomeText,logoAndTileBar;
+  RelativeLayout homePageMainLayout, welcomeText, logoAndTileBar;
   ImageView homePageUserImage;
   TextView homePageUserName;
   int foodtotal = 0;
@@ -75,9 +75,9 @@ public class HomeFragment extends Fragment {
     homepageShimmer = root.findViewById(R.id.shimmerHomePageFrameLayout);
     welcomeText = root.findViewById(R.id.welcomeText);
     homePageUserImage = root.findViewById(R.id.homePageUserImage);
-    homePageUserName=root.findViewById(R.id.homePageUserName);
-    homePageMainLayout= root.findViewById(R.id.homePageMainLayout);
-    logoAndTileBar= root.findViewById(R.id.logoAndTileBar);
+    homePageUserName = root.findViewById(R.id.homePageUserName);
+    homePageMainLayout = root.findViewById(R.id.homePageMainLayout);
+    logoAndTileBar = root.findViewById(R.id.logoAndTileBar);
     firebaseAuth = FirebaseAuth.getInstance();
     firebaseDatabase2 = FirebaseDatabase.getInstance();
     user = firebaseAuth.getCurrentUser();
@@ -184,6 +184,7 @@ public class HomeFragment extends Fragment {
 
                   if (snapshot.child("id").getValue() != null) {
                     if (getContext() != null) {
+
                       Toast.makeText(getContext(), "Please remove your last order before ordering new.", Toast.LENGTH_LONG).show();
                       bottomSheetDialog.dismiss();
                       databaseReference5.removeEventListener(this);
@@ -239,12 +240,12 @@ public class HomeFragment extends Fragment {
           }
 
           if (total != 0) {
-            fName=fName.replaceFirst("\n","");
+            fName = fName.replaceFirst("\n", "");
             foodname = fName;
             foodprize = fPrize;
-            fPrize=fPrize.replaceFirst("\n","");
+            fPrize = fPrize.replaceFirst("\n", "");
             foodcount = fCount;
-            fCount=fCount.replaceFirst("\n","");
+            fCount = fCount.replaceFirst("\n", "");
             foodtotal = total;
             nameFood.setText(fName);
             countFood.setText(fCount);
@@ -277,9 +278,9 @@ public class HomeFragment extends Fragment {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
         if (snapshot.child("image").getValue() != null) {
-            Picasso.get().load(snapshot.child("image").getValue().toString()).into(homePageUserImage);
+          Picasso.get().load(snapshot.child("image").getValue().toString()).into(homePageUserImage);
         }
-        homePageUserName.setText(snapshot.child("name").getValue().toString().split(" ")[0]+"!"+"\uD83D\uDC4B");
+        homePageUserName.setText(snapshot.child("name").getValue().toString().split(" ")[0] + "!" + "\uD83D\uDC4B");
         welcomeText.setVisibility(View.VISIBLE);
         logoAndTileBar.setVisibility(View.VISIBLE);
         homePageMainLayout.setVisibility(View.VISIBLE);

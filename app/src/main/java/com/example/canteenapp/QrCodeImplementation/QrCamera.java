@@ -1,4 +1,4 @@
-package com.example.canteenapp;
+package com.example.canteenapp.QrImplementation;
 
 import android.os.Bundle;
 import android.view.Gravity;
@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
+import com.example.canteenapp.R;
 import com.example.canteenapp.constant.CanteenConstant;
 import com.example.canteenapp.constant.FireBaseConstant;
 import com.google.firebase.database.DataSnapshot;
@@ -115,7 +116,6 @@ public class QrCamera extends AppCompatActivity {
               userId = Objects.requireNonNull(dataSnapshot.child("userId").getValue()).toString();
               time = Long.parseLong(Objects.requireNonNull(dataSnapshot.child("time").getValue()).toString());
               databaseReferencesUser.child(uniqueId).child("id").removeValue();
-              System.out.println(maxIdMaster);
               databaseReferenceMasterRecord.child(String.valueOf(maxIdMaster + 1)).child("userName").setValue(name);
               databaseReferenceMasterRecord.child(String.valueOf(maxIdMaster + 1)).child("foodName").setValue(foodName);
               databaseReferenceMasterRecord.child(String.valueOf(maxIdMaster + 1)).child("foodCount").setValue(foodCount);

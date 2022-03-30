@@ -154,7 +154,7 @@ public class AdminFilterPage extends AppCompatActivity implements DatePickerDial
                     map.put(foodName[0], Integer.parseInt(foodCount[0]));
                   }
                 }
-                for (int i = 0; i < foodCount.length; i++) {
+                for (int i = 1; i < foodCount.length; i++) {
                   foodName[i] = foodName[i].trim();
                   if (map.containsKey(foodName[i])) {
                     map.put(foodName[i], map.get(foodName[i]) + Integer.parseInt(foodCount[i]));
@@ -179,7 +179,7 @@ public class AdminFilterPage extends AppCompatActivity implements DatePickerDial
                     map.put(foodName[0], Integer.parseInt(foodCount[0]));
                   }
                 }
-                for (int i = 0; i < foodCount.length; i++) {
+                for (int i = 1; i < foodCount.length; i++) {
                   foodName[i] = foodName[i].trim();
                   if (map.containsKey(foodName[i])) {
                     map.put(foodName[i], map.get(foodName[i]) + Integer.parseInt(foodCount[i]));

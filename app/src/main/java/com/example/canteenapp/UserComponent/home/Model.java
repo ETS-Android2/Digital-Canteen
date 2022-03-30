@@ -1,13 +1,10 @@
-package com.example.canteenapp.FoodList;
+package com.example.canteenapp.ui.home;
 
+public class Model {
+  String foodName, foodPicture, foodPrize;
 
-public class FoodModel {
-  private String foodName;
-  private String foodPicture;
-  private String foodPrize;
-  private String foodId;
+  void Model() {
 
-  public FoodModel() {
   }
 
   public String getFoodName() {
@@ -32,13 +29,5 @@ public class FoodModel {
 
   public void setFoodPrize(String foodPrize) {
     this.foodPrize = foodPrize;
-  }
-
-  public String getFoodId() {
-    return foodId;
-  }
-
-  public void setFoodId(String foodId) {
-    this.foodId = foodId;
   }
 }

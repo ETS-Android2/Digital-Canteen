@@ -16,6 +16,7 @@ import java.net.URLConnection;
 
 public class NoInternet extends AppCompatActivity {
   Button checkInternet;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -30,11 +31,13 @@ public class NoInternet extends AppCompatActivity {
       }
     });
   }
+
   public boolean isInternetAvailable() {
     ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
     return connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
             connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
   }
+
   @Override
   public void onBackPressed() {
     super.onBackPressed();

@@ -1,17 +1,17 @@
 package com.example.canteenapp.History;
 
 public class HistoryModel {
-   private String foodName;
-    private String foodPrize;
-    private String foodCount;
-    private String total;
-    private String userName;
-    private String comment;
-    private String color;
-    private long time;
+  private String foodName;
+  private String foodPrize;
+  private String foodCount;
+  private String total;
+  private String userName;
+  private String comment;
+  private String color;
+  private long time;
 
-    void HistoryModel(){
-    }
+  void HistoryModel() {
+  }
 
   public String getFoodName() {
     return foodName;

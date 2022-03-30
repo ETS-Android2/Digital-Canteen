@@ -98,14 +98,11 @@ public class DashboardFragment extends Fragment {
     pay = root.findViewById(R.id.pay);
 
 
-
-
-
 //DASH ON CLICK
     dashcard.setOnClickListener(v -> {
-      String inputValue = CanteenConstant.SALT+userID+CanteenConstant.DIGTIAL_CANTEEN+lineNo+CanteenConstant.SALT;
+      String inputValue = CanteenConstant.SALT + userID + CanteenConstant.DIGTIAL_CANTEEN + lineNo + CanteenConstant.SALT;
       byte[] bytesEncoded = Base64.encodeBase64(inputValue.getBytes());
-      inputValue=new String(bytesEncoded);
+      inputValue = new String(bytesEncoded);
       if (inputValue.length() > 0) {
         WindowManager manager = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE);
         Display display = manager.getDefaultDisplay();
@@ -122,13 +119,13 @@ public class DashboardFragment extends Fragment {
         qrgEncoder.setColorBlack(Color.BLACK);
         qrgEncoder.setColorWhite(Color.WHITE);
         try {
-          final Dialog dialog=new Dialog(getContext());
+          final Dialog dialog = new Dialog(getContext());
           dialog.setContentView(R.layout.qr_code_view_layout);
           dialog.setCanceledOnTouchOutside(true);
           dialog.setCancelable(true);
           View bottomSheetView = LayoutInflater.from(getContext()).inflate(R.layout.qr_code_view_layout, root.findViewById(R.id.qrcodeLayout));
-          ImageView qrCodeImage =  bottomSheetView.findViewById(R.id.qrCodeImage);
-          TextView qrTokenNo= bottomSheetView.findViewById(R.id.tokenNoOfQrCode);
+          ImageView qrCodeImage = bottomSheetView.findViewById(R.id.qrCodeImage);
+          TextView qrTokenNo = bottomSheetView.findViewById(R.id.tokenNoOfQrCode);
           qrTokenNo.setText(String.valueOf(lineNo));
           bitmap = qrgEncoder.getBitmap();
           qrCodeImage.setImageBitmap(bitmap);
@@ -188,7 +185,7 @@ public class DashboardFragment extends Fragment {
                 dashPrize.setText(foodPrize);
                 dashTotal.setText(snapshot.child("total").getValue().toString());
                 tokenuser.setText(snapshot.child("userId").getValue().toString());
-                lineNo= Integer.parseInt(snapshot.child("userId").getValue().toString());
+                lineNo = Integer.parseInt(snapshot.child("userId").getValue().toString());
                 timeDash.setText(CanteenUtil.ConvertMilliSecondsToPrettyTime(Long.parseLong(snapshot.child("time").getValue().toString())));
 
                 if (snapshot.child(FireBaseConstant.NOTIFICATION_ID).exists()) {

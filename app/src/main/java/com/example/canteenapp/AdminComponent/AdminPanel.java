@@ -16,6 +16,7 @@ import com.example.canteenapp.FoodList.Food;
 import com.example.canteenapp.History.HistoryModel;
 import com.example.canteenapp.History.itemHistory;
 import com.example.canteenapp.OrderList.OrderIteam;
+import com.example.canteenapp.QrImplementation.QrCamera;
 import com.example.canteenapp.Registration.Registration;
 import com.example.canteenapp.Util.CanteenUtil;
 import com.example.canteenapp.constant.CanteenConstant;
@@ -30,7 +31,7 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 public class AdminPanel extends AppCompatActivity {
-  CardView viewOderCard, addUserCard, addFoodCard, viewLogCard, viewAnalysisCard,qrLogoCard,algoLogoCard;
+  CardView viewOderCard, addUserCard, addFoodCard, viewLogCard, viewAnalysisCard, qrLogoCard, algoLogoCard;
   DatabaseReference databaseReference;
   FirebaseDatabase firebaseDatabase;
   TextView adminPanelTotalAmount;
@@ -45,16 +46,16 @@ public class AdminPanel extends AppCompatActivity {
     addUserCard = findViewById(R.id.addUserLogoCard);
     addFoodCard = findViewById(R.id.addFoodLogoCard);
     viewLogCard = findViewById(R.id.logLogoCard);
-    qrLogoCard=findViewById(R.id.QRLogoCard);
-    algoLogoCard=findViewById(R.id.AlgoLogoCard);
+    qrLogoCard = findViewById(R.id.QRLogoCard);
+    algoLogoCard = findViewById(R.id.AlgoLogoCard);
     viewAnalysisCard = findViewById(R.id.analysisLogoCard);
     firebaseDatabase = FirebaseDatabase.getInstance();
     databaseReference = firebaseDatabase.getReference(FireBaseConstant.HISTORY);
     adminPanelTotalAmount = findViewById(R.id.adminPanelTotalAmount);
 
     if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
-            == PackageManager.PERMISSION_DENIED){
-      ActivityCompat.requestPermissions(AdminPanel.this, new String[] {Manifest.permission.CAMERA}, 1);
+            == PackageManager.PERMISSION_DENIED) {
+      ActivityCompat.requestPermissions(AdminPanel.this, new String[]{Manifest.permission.CAMERA}, 1);
 
     }
     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -72,7 +73,7 @@ public class AdminPanel extends AppCompatActivity {
               databaseReference.child(s.getKey()).removeValue();
             }
           }
-          adminPanelTotalAmount.setText("Rs."+NumberFormat.getInstance().format(Float.parseFloat(df.format(netIncome))));
+          adminPanelTotalAmount.setText("Rs." + NumberFormat.getInstance().format(Float.parseFloat(df.format(netIncome))));
           databaseReference.removeEventListener(this);
         }
         databaseReference.removeEventListener(this);
