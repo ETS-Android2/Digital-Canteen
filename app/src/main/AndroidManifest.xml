@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.canteenapp">
+    package="com.example.canteenapp" >
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -8,26 +8,25 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/logo"
         android:roundIcon="@mipmap/logo"
         android:supportsRtl="true"
-        android:theme="@style/WhiteWithBlack">
-        <activity android:name=".NoInternet" />
+        android:theme="@style/WhiteWithBlack" >
+        <activity android:name=".Util.NoInternet" />
         <activity
             android:name=".History.itemHistory"
             android:hardwareAccelerated="true"
             android:theme="@style/WhiteWithBlack" />
         <activity
-            android:name=".AdminFilterPage"
+            android:name=".AdminComponent.AdminFilterPage"
             android:hardwareAccelerated="true"
             android:theme="@style/WhiteWithBlack" />
         <activity
-            android:name=".QrCamera"
+            android:name=".QrCodeImplementation.QrCamera"
             android:hardwareAccelerated="true"
             android:theme="@style/WhiteWithBlack" />
         <activity
@@ -44,7 +43,7 @@
             android:hardwareAccelerated="true"
             android:theme="@style/WhiteWithBlack" />
         <activity
-            android:name=".AdminPanel"
+            android:name=".AdminComponent.AdminPanel"
             android:hardwareAccelerated="true"
             android:theme="@style/WhiteWithBlack" />
         <activity
@@ -56,7 +55,7 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity
             android:name=".Splashscreen.SplashScreen"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

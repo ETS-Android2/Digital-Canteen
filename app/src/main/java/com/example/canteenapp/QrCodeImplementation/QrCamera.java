@@ -1,5 +1,6 @@
-package com.example.canteenapp.QrImplementation;
+package com.example.canteenapp.QrCodeImplementation;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -12,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.budiyev.android.codescanner.CodeScanner;
 import com.budiyev.android.codescanner.CodeScannerView;
+import com.example.canteenapp.AdminComponent.AdminPanel;
 import com.example.canteenapp.R;
+import com.example.canteenapp.Util.MailUtil;
 import com.example.canteenapp.constant.CanteenConstant;
 import com.example.canteenapp.constant.FireBaseConstant;
 import com.google.firebase.database.DataSnapshot;
@@ -107,7 +110,6 @@ public class QrCamera extends AppCompatActivity {
         public void onDataChange(@NonNull DataSnapshot snapshot) {
           for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
             if (Objects.requireNonNull(dataSnapshot.child("uniqueId").getValue()).toString().equals(uniqueId) && dataSnapshot.child("userId").getValue().toString().equals(finalDecoded.split(",")[1])) {
-
               foodCount = Objects.requireNonNull(dataSnapshot.child("foodCount").getValue()).toString();
               foodName = Objects.requireNonNull(dataSnapshot.child("foodName").getValue()).toString();
               foodPrize = Objects.requireNonNull(dataSnapshot.child("foodPrize").getValue()).toString();
@@ -115,6 +117,14 @@ public class QrCamera extends AppCompatActivity {
               total = Objects.requireNonNull(dataSnapshot.child("total").getValue()).toString();
               userId = Objects.requireNonNull(dataSnapshot.child("userId").getValue()).toString();
               time = Long.parseLong(Objects.requireNonNull(dataSnapshot.child("time").getValue()).toString());
+              String to = Objects.requireNonNull(dataSnapshot.child("email").getValue()).toString();
+              String subject = "Digital Canteen - Order Complete";
+              String body = name + " your order for  "
+                      + foodName.trim().replace("\n", "") + " is completed";
+              Thread thread = new Thread(() -> {
+                MailUtil.send(to, subject, body);
+              });
+              thread.start();
               databaseReferencesUser.child(uniqueId).child("id").removeValue();
               databaseReferenceMasterRecord.child(String.valueOf(maxIdMaster + 1)).child("userName").setValue(name);
               databaseReferenceMasterRecord.child(String.valueOf(maxIdMaster + 1)).child("foodName").setValue(foodName);
@@ -157,6 +167,7 @@ public class QrCamera extends AppCompatActivity {
 
         }
       });
+
       mCodeScanner.releaseResources();
       mCodeScanner.startPreview();
       bar.setVisibility(View.VISIBLE);
@@ -164,6 +175,7 @@ public class QrCamera extends AppCompatActivity {
       Toast toast = Toast.makeText(getApplicationContext(), "DONE!", Toast.LENGTH_LONG);
       toast.setGravity(Gravity.CENTER, 0, 0);
       toast.show();
+      startActivity(new Intent(getApplicationContext(), AdminPanel.class));
       try {
         Thread.sleep(2000);
       } catch (InterruptedException e) {

@@ -1,4 +1,4 @@
-package com.example.canteenapp;
+package com.example.canteenapp.AdminComponent;
 
 import android.app.DatePickerDialog;
 import android.app.DialogFragment;
@@ -20,6 +20,8 @@ import com.anychart.chart.common.dataentry.ValueDataEntry;
 import com.anychart.charts.Pie;
 import com.anychart.enums.Align;
 import com.anychart.enums.LegendLayout;
+import com.example.canteenapp.DatePickerFragment;
+import com.example.canteenapp.R;
 import com.example.canteenapp.Util.CanteenUtil;
 import com.example.canteenapp.constant.FireBaseConstant;
 import com.google.firebase.database.DataSnapshot;

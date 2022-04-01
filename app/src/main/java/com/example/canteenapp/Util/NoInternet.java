@@ -1,4 +1,4 @@
-package com.example.canteenapp;
+package com.example.canteenapp.Util;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.net.InetAddress;
-import java.net.URL;
-import java.net.URLConnection;
+import com.example.canteenapp.MainActivity;
+import com.example.canteenapp.R;
 
 public class NoInternet extends AppCompatActivity {
   Button checkInternet;

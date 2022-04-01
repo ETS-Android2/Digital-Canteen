@@ -8,9 +8,19 @@ public class ModelOrder {
   private String name;
   private String userId;
   private String uniqueId;
+  private String email;
   private long time;
 
-  void Modelorder(){}
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  void Modelorder() {
+  }
 
   public String getFoodName() {
     return foodName;

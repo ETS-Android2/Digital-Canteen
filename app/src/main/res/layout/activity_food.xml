@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/background"
-    tools:context=".FoodList.Food">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/background"
+                tools:context=".FoodList.Food">
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerfood"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+  <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerfood"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"/>
 
-    <RelativeLayout
-        android:id="@+id/hiddenrelative"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:background="@color/white">
+  <RelativeLayout
+          android:id="@+id/hiddenrelative"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="30dp"
+          android:background="@color/white">
 
-        <EditText
+    <EditText
             android:id="@+id/setFoodname"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -29,9 +29,9 @@
             android:hint="@string/foodname"
             android:textColor="@color/appBlack"
             android:textColorHint="@color/appBlack"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
 
-        <EditText
+    <EditText
             android:id="@+id/setFoodprize"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -42,9 +42,9 @@
             android:hint="@string/foodprize"
             android:textColor="@color/appBlack"
             android:textColorHint="@color/appBlack"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
 
-        <EditText
+    <EditText
             android:id="@+id/setFoodpicture"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -55,9 +55,9 @@
             android:hint="@string/foodpictureurl"
             android:textColor="@color/appBlack"
             android:textColorHint="@color/appBlack"
-            android:textSize="24sp" />
+            android:textSize="24sp"/>
 
-        <Button
+    <Button
             android:id="@+id/DONefOOD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,17 +67,17 @@
             android:background="@drawable/rounded_rectangele"
             android:fontFamily="@font/poppinsmedium"
             android:text="@string/done"
-            android:textColor="@color/white" />
-    </RelativeLayout>
-    <Button
-        android:fontFamily="@font/poppinsmedium"
-        android:textColor="@color/white"
-        android:background="@drawable/rounded_rectangele"
-        android:layout_marginBottom="10dp"
-        android:layout_centerInParent="true"
-        android:id="@+id/addnewfood"
-        android:layout_alignParentBottom="true"
-        android:layout_width="100dp"
-        android:layout_height="wrap_content"
-        android:text="@string/add_new_food"></Button>
+            android:textColor="@color/white"/>
+  </RelativeLayout>
+  <Button
+          android:fontFamily="@font/poppinsmedium"
+          android:textColor="@color/white"
+          android:background="@drawable/rounded_rectangele"
+          android:layout_marginBottom="10dp"
+          android:layout_centerInParent="true"
+          android:id="@+id/addnewfood"
+          android:layout_alignParentBottom="true"
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:text="@string/add_new_food"></Button>
 </RelativeLayout>

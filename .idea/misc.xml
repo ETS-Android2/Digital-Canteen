@@ -82,9 +82,10 @@
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/activity_order_iteam.xml" value="0.25" />
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/activity_registration.xml" value="0.25" />
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/activity_splash_screen.xml" value="0.25" />
-        <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/admin_algorithm.xml" value="0.25" />
+        <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/activity_tiktaktoe.xml" value="0.25" />
+        <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/admin_algorithm.xml" value="0.152" />
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/admin_filter_page.xml" value="0.264" />
-        <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/admin_panel.xml" value="0.176" />
+        <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/admin_panel.xml" value="0.2" />
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/confromationscreen.xml" value="0.25" />
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/foodtemp.xml" value="0.25" />
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/fragment_dashboard.xml" value="0.3377885783718105" />
@@ -93,10 +94,11 @@
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/homefragement_style.xml" value="0.25" />
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/iteamhistorytemp.xml" value="0.25" />
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/orderiteamtemplate.xml" value="0.25" />
-        <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/qr_camera_scan.xml" value="0.264" />
+        <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/qr_camera_scan.xml" value="0.1" />
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/qr_code_view_layout.xml" value="0.176" />
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/shimmer_homepage.xml" value="0.25" />
         <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/layout/shimmer_order_item.xml" value="0.25" />
+        <entry key="..\:/Users/aa986/Desktop/COLLEGPROJECT/DIGITAL CANTEEN/Digital-Canteen/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
       </map>
     </option>
   </component>

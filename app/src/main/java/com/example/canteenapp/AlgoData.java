@@ -3,10 +3,13 @@ package com.example.canteenapp;
 public class AlgoData {
   String foodName;
   Integer foodCount;
+  long foodPrize;
   long time;
+
   public AlgoData() {
 
   }
+
   public AlgoData(String foodName, Integer foodCount, long time) {
     this.foodName = foodName;
     this.foodCount = foodCount;
@@ -27,6 +30,14 @@ public class AlgoData {
 
   public void setFoodCount(Integer foodCount) {
     this.foodCount = foodCount;
+  }
+
+  public long getFoodPrize() {
+    return foodPrize;
+  }
+
+  public void setFoodPrize(long foodPrize) {
+    this.foodPrize = foodPrize;
   }
 
   public long getTime() {

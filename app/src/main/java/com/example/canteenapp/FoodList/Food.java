@@ -15,7 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.canteenapp.AdminPanel;
+import com.example.canteenapp.AdminComponent.AdminPanel;
 import com.example.canteenapp.R;
 import com.example.canteenapp.constant.FireBaseConstant;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;

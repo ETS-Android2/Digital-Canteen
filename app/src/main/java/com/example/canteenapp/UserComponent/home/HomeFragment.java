@@ -1,4 +1,4 @@
-package com.example.canteenapp.ui.home;
+package com.example.canteenapp.UserComponent.home;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,8 +20,8 @@ import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.canteenapp.NoInternet;
 import com.example.canteenapp.R;
+import com.example.canteenapp.Util.NoInternet;
 import com.example.canteenapp.constant.FireBaseConstant;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -37,9 +37,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-import java.net.InetAddress;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -167,6 +164,7 @@ public class HomeFragment extends Fragment {
                     value.put("userId", String.valueOf(maxid + 1));
                     value.put("uniqueId", String.valueOf(userID));
                     value.put("time", System.currentTimeMillis());
+                    value.put("email",user.getEmail());
                   } else {
 
                   }
@@ -184,9 +182,11 @@ public class HomeFragment extends Fragment {
 
                   if (snapshot.child("id").getValue() != null) {
                     if (getContext() != null) {
-
-                      Toast.makeText(getContext(), "Please remove your last order before ordering new.", Toast.LENGTH_LONG).show();
+                      value.put("userId", snapshot.child("id").getValue().toString());
+                      databaseReference3.child(snapshot.child("id").getValue().toString()).updateChildren(value);
+                      Toast.makeText(getContext(), "Order Updated", Toast.LENGTH_LONG).show();
                       bottomSheetDialog.dismiss();
+                      Navigation.findNavController(root).navigate(R.id.navigation_dashboard);
                       databaseReference5.removeEventListener(this);
 
                     } else {

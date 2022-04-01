@@ -16,6 +16,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.canteenapp.AdminComponent.AdminPanel;
+import com.example.canteenapp.Util.NoInternet;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
+
+
     email = findViewById(R.id.Emailoflogin);
     password = findViewById(R.id.Passwordlogin);
     button = findViewById(R.id.loginbutton);
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
     });
 
     button.setOnClickListener(view -> {
-      if (isResetPassword){
+      if (isResetPassword) {
         progressBar.setVisibility(View.VISIBLE);
         String Email = email.getText().toString();
         if (TextUtils.isEmpty(Email)) {
@@ -79,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
 
                   }
-                  if (!task.isSuccessful()){
+                  if (!task.isSuccessful()) {
                     Toast.makeText(MainActivity.this, "Reset link sending failed", Toast.LENGTH_SHORT).show();
                     frameLayout.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
@@ -89,8 +93,8 @@ public class MainActivity extends AppCompatActivity {
 
       }
       if (!isResetPassword) {
-        String Email = email.getText().toString();
-        String Password = password.getText().toString();
+        String Email = email.getText().toString().trim();
+        String Password = password.getText().toString().trim();
         if (Email.matches("admin") && Password.matches("admin")) {
           Toast.makeText(MainActivity.this, "SUCCESS", Toast.LENGTH_SHORT).show();
           Intent intent = new Intent(getApplicationContext(), AdminPanel.class);

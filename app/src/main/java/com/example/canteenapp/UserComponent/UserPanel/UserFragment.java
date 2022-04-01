@@ -1,4 +1,4 @@
-package com.example.canteenapp.ui.UserInfo;
+package com.example.canteenapp.UserComponent.UserPanel;
 
 import android.app.Activity;
 import android.content.Context;
@@ -26,7 +26,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.canteenapp.MainActivity;
-import com.example.canteenapp.NoInternet;
+import com.example.canteenapp.Util.NoInternet;
 import com.example.canteenapp.R;
 import com.example.canteenapp.constant.FireBaseConstant;
 import com.google.firebase.auth.FirebaseAuth;

@@ -13,9 +13,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.canteenapp.AdminPanel;
+import com.example.canteenapp.AdminComponent.AdminPanel;
 import com.example.canteenapp.R;
 import com.example.canteenapp.Util.CanteenUtil;
+import com.example.canteenapp.Util.MailUtil;
 import com.example.canteenapp.constant.FireBaseConstant;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -28,11 +29,11 @@ import com.google.firebase.database.ValueEventListener;
 
 public class OrderIteam extends AppCompatActivity {
   private FirebaseDatabase firebaseDatabase;
-  private DatabaseReference databaseReference,databaseReferenceMasterRecord, databaseReference2, databaseReference4, databaseReferenceCancleConfromOrder, databaseReferencesuser;
+  private DatabaseReference databaseReference, databaseReferenceMasterRecord, databaseReference2, databaseReference4, databaseReferenceCancleConfromOrder, databaseReferencesuser;
   RecyclerView recyclerView;
   FirebaseRecyclerAdapter<ModelOrder, OrderViewHolder> firebaseRecyclerAdapter;
-  long maxId = 0,maxIdMaster=0;
-  TextView  title;
+  long maxId = 0, maxIdMaster = 0;
+  TextView title;
   ShimmerFrameLayout shimmerFrameLayout;
 
 
@@ -47,8 +48,8 @@ public class OrderIteam extends AppCompatActivity {
     databaseReference2 = firebaseDatabase.getReference(FireBaseConstant.HISTORY);
     databaseReferencesuser = firebaseDatabase.getReference().child(FireBaseConstant.USERS);
     databaseReferenceMasterRecord = firebaseDatabase.getReference().child(FireBaseConstant.MASTER_RECORD);
-    title=findViewById(R.id.orderItemTitle);
-    shimmerFrameLayout=findViewById(R.id.orderIteamShimmerLayout);
+    title = findViewById(R.id.orderItemTitle);
+    shimmerFrameLayout = findViewById(R.id.orderIteamShimmerLayout);
     databaseReferenceMasterRecord.addValueEventListener(new ValueEventListener() {
       @Override
       public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -108,6 +109,14 @@ public class OrderIteam extends AppCompatActivity {
                       if (snapshot != null) {
                         for (DataSnapshot children : snapshot.getChildren()) {
                           if (children.child("uniqueId").getValue().toString() == modelorder.getUniqueId()) {
+                            String to = modelorder.getEmail();
+                            String subject = "Digital Canteen - Order Canceled";
+                            String body = modelorder.getName() + " your order for  "
+                                    + modelorder.getFoodName().trim().replace("\n", "") + " is canceled";
+                            Thread thread = new Thread(() -> {
+                              MailUtil.send(to, subject, body);
+                            });
+                            thread.start();
                             databaseReferenceCancleConfromOrder.child(children.getKey()).removeValue();
                           }
                         }
@@ -124,6 +133,14 @@ public class OrderIteam extends AppCompatActivity {
                 orderViewHolder.orderredy.setOnClickListener(v -> {
                   databaseReference.child(modelorder.getUserId()).child(FireBaseConstant.NOTIFICATION_ID).setValue(1);
                   Toast.makeText(getApplicationContext(), "DONE", Toast.LENGTH_SHORT).show();
+                  String to = modelorder.getEmail();
+                  String subject = "Digital Canteen - Order Ready";
+                  String body = modelorder.getName() + ",Please collect your food " + " "
+                          + " your order for " + modelorder.getFoodName().trim().replace("\n", "") + " is ready";
+                  Thread thread = new Thread(() -> {
+                    MailUtil.send(to, subject, body);
+                  });
+                  thread.start();
                 });
                 orderViewHolder.done.setOnClickListener(view -> {
                   databaseReferencesuser.child(modelorder.getUniqueId()).child("id").removeValue();
@@ -141,7 +158,14 @@ public class OrderIteam extends AppCompatActivity {
                   databaseReference2.child(String.valueOf(maxId + 1)).child("total").setValue(modelorder.getTotal());
                   databaseReference2.child(String.valueOf(maxId + 1)).child("time").setValue(modelorder.getTime());
                   databaseReference2.child(String.valueOf(maxId + 1)).child("comment").setValue("REMOVED BY ADMIN");
-
+                  String to = modelorder.getEmail();
+                  String subject = "Digital Canteen - Order Complete";
+                  String body = modelorder.getName() + " your order for  "
+                          + modelorder.getFoodName().trim().replace("\n", "") + " is completed";
+                  Thread thread = new Thread(() -> {
+                    MailUtil.send(to, subject, body);
+                  });
+                  thread.start();
                   databaseReference4.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

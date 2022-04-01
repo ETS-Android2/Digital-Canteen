@@ -13,8 +13,8 @@ import com.example.canteenapp.R;
 public class OrderViewHolder extends RecyclerView.ViewHolder {
 
   View view;
-  TextView topfoodname, topfoodprice, topfoodcount, username, total, tokenadmin, time,title;
-  Button done, orderredy,cancel;
+  TextView topfoodname, topfoodprice, topfoodcount, username, total, tokenadmin, time, title;
+  Button done, orderredy, cancel;
   CardView cardView;
 
   public OrderViewHolder(@NonNull View itemView) {
@@ -30,7 +30,7 @@ public class OrderViewHolder extends RecyclerView.ViewHolder {
     cardView = view.findViewById(R.id.cardviewfororderlist);
     tokenadmin = view.findViewById(R.id.tokenadmin);
     time = view.findViewById(R.id.time);
-    cancel=view.findViewById(R.id.orderCancel);
+    cancel = view.findViewById(R.id.orderCancel);
 
   }
 

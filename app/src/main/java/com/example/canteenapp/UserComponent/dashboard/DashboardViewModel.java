@@ -1,4 +1,4 @@
-package com.example.canteenapp.ui.dashboard;
+package com.example.canteenapp.UserComponent.dashboard;
 
 import androidx.lifecycle.ViewModel;
 

@@ -2,6 +2,7 @@ package com.example.canteenapp;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -34,15 +35,15 @@ public class AdminAlgorithm extends AppCompatActivity {
   private static List<AlgoData> listOfFallData = new ArrayList<>();
   private static List<AlgoData> listOfWinterData = new ArrayList<>();
   private static List<AlgoData> listOfYearData = new ArrayList<>();
-  private static Map<String, Integer> mapOfDailyData = new HashMap<>();
-  private static Map<String, Integer> mapOfWeeklyData = new HashMap<>();
-  private static Map<String, Integer> mapOfMonthlyData = new HashMap<>();
-  private static Map<String, Integer> mapOfYearlyData = new HashMap<>();
-  private static Map<String, Integer> mapOfSummerData = new HashMap<>();
-  private static Map<String, Integer> mapOfSpringData = new HashMap<>();
-  private static Map<String, Integer> mapOfFallData = new HashMap<>();
-  private static Map<String, Integer> mapOfWinterData = new HashMap<>();
-
+  private static Map<String, Long> mapOfDailyData = new HashMap<>();
+  private static Map<String, Long> mapOfWeeklyData = new HashMap<>();
+  private static Map<String, Long> mapOfMonthlyData = new HashMap<>();
+  private static Map<String, Long> mapOfYearlyData = new HashMap<>();
+  private static Map<String, Long> mapOfSummerData = new HashMap<>();
+  private static Map<String, Long> mapOfSpringData = new HashMap<>();
+  private static Map<String, Long> mapOfFallData = new HashMap<>();
+  private static Map<String, Long> mapOfWinterData = new HashMap<>();
+  private TextView day, week, month, year, spring, summer, winter, fall;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,15 @@ public class AdminAlgorithm extends AppCompatActivity {
     setContentView(R.layout.admin_algorithm);
     firebaseDatabase = FirebaseDatabase.getInstance();
     databaseReferenceMasterRecord = firebaseDatabase.getReference().child(FireBaseConstant.MASTER_RECORD);
+    day = findViewById(R.id.day);
+    week = findViewById(R.id.week);
+    month = findViewById(R.id.month);
+    year = findViewById(R.id.year);
+    spring = findViewById(R.id.spring);
+    fall = findViewById(R.id.fall);
+    winter = findViewById(R.id.winter);
+    summer = findViewById(R.id.summer);
+
 
 
   }
@@ -65,20 +75,23 @@ public class AdminAlgorithm extends AppCompatActivity {
           for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
             String[] foodCountArray = dataSnapshot.child("foodCount").getValue().toString().replaceFirst("\n", "").split("\n");
             String[] foodNameArray = dataSnapshot.child("foodName").getValue().toString().split("\n");
+            String[] foodPrizeArray = dataSnapshot.child("foodPrize").getValue().toString().replaceFirst("\n", "").split("\n");
 
             if (foodCountArray.length == 1) {
               foodNameArray[0] = foodNameArray[0].trim();
               AlgoData algoData = new AlgoData();
               algoData.setFoodName(foodNameArray[0]);
               algoData.setFoodCount(Integer.parseInt(foodCountArray[0]));
+              algoData.setFoodPrize((long) Integer.parseInt(foodPrizeArray[0]) * algoData.getFoodCount());
               algoData.setTime(Long.parseLong(dataSnapshot.child("time").getValue().toString()));
               listOfData.add(algoData);
             }
-            for (int i = 0; i < foodCountArray.length; i++) {
+            for (int i = 1; i < foodCountArray.length; i++) {
               foodNameArray[i] = foodNameArray[i].trim();
               AlgoData algoData = new AlgoData();
               algoData.setFoodName(foodNameArray[i]);
               algoData.setFoodCount(Integer.parseInt(foodCountArray[i]));
+              algoData.setFoodPrize((long) Integer.parseInt(foodPrizeArray[i]) * algoData.getFoodCount());
               algoData.setTime(Long.parseLong(dataSnapshot.child("time").getValue().toString()));
               listOfData.add(algoData);
             }
@@ -115,67 +128,85 @@ public class AdminAlgorithm extends AppCompatActivity {
 
           if (!listOfDailyData.isEmpty()) {
             for (AlgoData algoData : listOfDailyData) {
-              mapOfDailyData.putIfAbsent(algoData.getFoodName(), algoData.getFoodCount());
               if (mapOfDailyData.containsKey(algoData.getFoodName())) {
-                mapOfDailyData.put(algoData.foodName, mapOfDailyData.get(algoData.getFoodName()) + algoData.getFoodCount());
+                mapOfDailyData.put(algoData.foodName, mapOfDailyData.get(algoData.getFoodName()) + algoData.getFoodPrize());
               }
+              mapOfDailyData.putIfAbsent(algoData.getFoodName(), algoData.getFoodPrize());
             }
+            System.out.println("daily:");
+          day.setText(getHighestSellingFoodItem(mapOfDailyData));
           }
           if (!listOfWeeklyData.isEmpty()) {
             for (AlgoData algoData : listOfWeeklyData) {
-              mapOfWeeklyData.putIfAbsent(algoData.getFoodName(), algoData.getFoodCount());
               if (mapOfWeeklyData.containsKey(algoData.getFoodName())) {
-                mapOfWeeklyData.put(algoData.foodName, mapOfWeeklyData.get(algoData.getFoodName()) + algoData.getFoodCount());
+                mapOfWeeklyData.put(algoData.foodName, mapOfWeeklyData.get(algoData.getFoodName()) + algoData.getFoodPrize());
               }
+              mapOfWeeklyData.putIfAbsent(algoData.getFoodName(), algoData.getFoodPrize());
             }
+            System.out.println("weekly:");
+            week.setText(getHighestSellingFoodItem(mapOfWeeklyData));
           }
           if (!listOfMonthlyData.isEmpty()) {
             for (AlgoData algoData : listOfMonthlyData) {
-              mapOfMonthlyData.putIfAbsent(algoData.getFoodName(), algoData.getFoodCount());
               if (mapOfMonthlyData.containsKey(algoData.getFoodName())) {
-                mapOfMonthlyData.put(algoData.foodName, mapOfMonthlyData.get(algoData.getFoodName()) + algoData.getFoodCount());
+                mapOfMonthlyData.put(algoData.foodName, mapOfMonthlyData.get(algoData.getFoodName()) + algoData.getFoodPrize());
               }
+              mapOfMonthlyData.putIfAbsent(algoData.getFoodName(), algoData.getFoodPrize());
             }
+            System.out.println("monthly:");
+            month.setText(getHighestSellingFoodItem(mapOfMonthlyData));
           }
           if (!listOfYearData.isEmpty()) {
             for (AlgoData algoData : listOfYearData) {
-              mapOfYearlyData.putIfAbsent(algoData.getFoodName(), algoData.getFoodCount());
               if (mapOfYearlyData.containsKey(algoData.getFoodName())) {
-                mapOfYearlyData.put(algoData.foodName, mapOfYearlyData.get(algoData.getFoodName()) + algoData.getFoodCount());
+                mapOfYearlyData.put(algoData.foodName, mapOfYearlyData.get(algoData.getFoodName()) + algoData.getFoodPrize());
               }
+              mapOfYearlyData.putIfAbsent(algoData.getFoodName(), algoData.getFoodPrize());
             }
+            System.out.println("yearly");
+            year.setText(getHighestSellingFoodItem(mapOfYearlyData));
           }
           if (!listOfSummerData.isEmpty()) {
             for (AlgoData algoData : listOfSummerData) {
-              mapOfSummerData.putIfAbsent(algoData.getFoodName(), algoData.getFoodCount());
               if (mapOfSummerData.containsKey(algoData.getFoodName())) {
-                mapOfSummerData.put(algoData.foodName, mapOfSummerData.get(algoData.getFoodName()) + algoData.getFoodCount());
+                mapOfSummerData.put(algoData.foodName, mapOfSummerData.get(algoData.getFoodName()) + algoData.getFoodPrize());
               }
+              mapOfSummerData.putIfAbsent(algoData.getFoodName(), algoData.getFoodPrize());
             }
+            System.out.println("summer");
+            summer.setText(getHighestSellingFoodItem(mapOfSummerData));
           }
           if (!listOfSpringData.isEmpty()) {
             for (AlgoData algoData : listOfSpringData) {
-              mapOfSpringData.putIfAbsent(algoData.getFoodName(), algoData.getFoodCount());
               if (mapOfSpringData.containsKey(algoData.getFoodName())) {
-                mapOfSpringData.put(algoData.foodName, mapOfSpringData.get(algoData.getFoodName()) + algoData.getFoodCount());
+                mapOfSpringData.put(algoData.foodName, mapOfSpringData.get(algoData.getFoodName()) + algoData.getFoodPrize());
               }
+              mapOfSpringData.putIfAbsent(algoData.getFoodName(), algoData.getFoodPrize());
             }
+            System.out.println("spring");
+            spring.setText(getHighestSellingFoodItem(mapOfSpringData));
           }
           if (!listOfFallData.isEmpty()) {
             for (AlgoData algoData : listOfFallData) {
-              mapOfFallData.putIfAbsent(algoData.getFoodName(), algoData.getFoodCount());
               if (mapOfFallData.containsKey(algoData.getFoodName())) {
-                mapOfFallData.put(algoData.foodName, mapOfFallData.get(algoData.getFoodName()) + algoData.getFoodCount());
+                mapOfFallData.put(algoData.foodName, mapOfFallData.get(algoData.getFoodName()) + algoData.getFoodPrize());
               }
+              mapOfFallData.putIfAbsent(algoData.getFoodName(), algoData.getFoodPrize());
             }
+            System.out.println("fall");
+
+            fall.setText(getHighestSellingFoodItem(mapOfFallData));
           }
           if (!listOfWinterData.isEmpty()) {
             for (AlgoData algoData : listOfWinterData) {
-              mapOfWinterData.putIfAbsent(algoData.getFoodName(), algoData.getFoodCount());
+              mapOfWinterData.putIfAbsent(algoData.getFoodName(), algoData.getFoodPrize());
               if (mapOfWinterData.containsKey(algoData.getFoodName())) {
-                mapOfWinterData.put(algoData.foodName, mapOfWinterData.get(algoData.getFoodName()) + algoData.getFoodCount());
+                mapOfWinterData.put(algoData.foodName, mapOfWinterData.get(algoData.getFoodName()) + algoData.getFoodPrize());
               }
             }
+            System.out.println("winter");
+
+            day.setText(getHighestSellingFoodItem(mapOfWinterData));
           }
         }
       }
@@ -186,5 +217,17 @@ public class AdminAlgorithm extends AppCompatActivity {
       }
     });
 
+  }
+
+  private String getHighestSellingFoodItem(Map<String, Long> map) {
+    String currentMax = null;
+    long currentMaxInt = 0;
+    for (String name : map.keySet()) {
+      if (currentMaxInt < map.get(name)) {
+        currentMaxInt = map.get(name);
+        currentMax = name;
+      }
+    }
+    return "Food: "+currentMax;
   }
 }

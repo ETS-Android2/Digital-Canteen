@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.canteenapp.AdminPanel;
+import com.example.canteenapp.AdminComponent.AdminPanel;
 import com.example.canteenapp.R;
 import com.example.canteenapp.Util.CanteenUtil;
 import com.example.canteenapp.constant.CanteenConstant;

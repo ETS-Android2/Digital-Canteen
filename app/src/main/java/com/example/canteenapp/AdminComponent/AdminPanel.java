@@ -1,4 +1,4 @@
-package com.example.canteenapp;
+package com.example.canteenapp.AdminComponent;
 
 import android.Manifest;
 import android.content.Intent;
@@ -12,11 +12,14 @@ import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
+import com.example.canteenapp.AdminAlgorithm;
 import com.example.canteenapp.FoodList.Food;
 import com.example.canteenapp.History.HistoryModel;
 import com.example.canteenapp.History.itemHistory;
+import com.example.canteenapp.MainActivity;
 import com.example.canteenapp.OrderList.OrderIteam;
-import com.example.canteenapp.QrImplementation.QrCamera;
+import com.example.canteenapp.QrCodeImplementation.QrCamera;
+import com.example.canteenapp.R;
 import com.example.canteenapp.Registration.Registration;
 import com.example.canteenapp.Util.CanteenUtil;
 import com.example.canteenapp.constant.CanteenConstant;
@@ -56,7 +59,6 @@ public class AdminPanel extends AppCompatActivity {
     if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.CAMERA)
             == PackageManager.PERMISSION_DENIED) {
       ActivityCompat.requestPermissions(AdminPanel.this, new String[]{Manifest.permission.CAMERA}, 1);
-
     }
     databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
       @Override

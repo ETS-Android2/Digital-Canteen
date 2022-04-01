@@ -1,4 +1,4 @@
-package com.example.canteenapp.ui.home;
+package com.example.canteenapp.UserComponent.home;
 
 public class Model {
   String foodName, foodPicture, foodPrize;

@@ -1,4 +1,4 @@
-package com.example.canteenapp.ui.home;
+package com.example.canteenapp.UserComponent.home;
 
 import android.view.View;
 import android.widget.ImageView;

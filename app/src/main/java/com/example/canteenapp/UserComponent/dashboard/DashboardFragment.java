@@ -1,4 +1,4 @@
-package com.example.canteenapp.ui.dashboard;
+package com.example.canteenapp.UserComponent.dashboard;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -20,14 +20,13 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.example.canteenapp.NoInternet;
+import com.example.canteenapp.Util.NoInternet;
 import com.example.canteenapp.R;
 import com.example.canteenapp.Util.CanteenUtil;
 import com.example.canteenapp.constant.CanteenConstant;
@@ -98,7 +97,7 @@ public class DashboardFragment extends Fragment {
     pay = root.findViewById(R.id.pay);
 
 
-//DASH ON CLICK
+    //DASH ON CLICK
     dashcard.setOnClickListener(v -> {
       String inputValue = CanteenConstant.SALT + userID + CanteenConstant.DIGTIAL_CANTEEN + lineNo + CanteenConstant.SALT;
       byte[] bytesEncoded = Base64.encodeBase64(inputValue.getBytes());
