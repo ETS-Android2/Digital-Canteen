@@ -18,6 +18,8 @@ application as its programming language.
 - Can track the total money used to order food
 - Unique profile for every user
 - Has a token system with a UI for how long will the order take to be placed
+- Has a Qr code generationa and scan feature
+- Has a analysis for admin along with top selling report.
 
 ## Preview of application on user side
 
@@ -30,10 +32,7 @@ application as its programming language.
 ## Password for admin pages
 
 ```
-Registration page -->   email:admin , password:adduser
-Add Food page     -->   email:admin , password:addfood
-View Order page   -->   email:admin , password:order
-View Profit page  -->   email:admin , password:history
+Admin page -->   email:admin , password:admin
 
 ```
 
