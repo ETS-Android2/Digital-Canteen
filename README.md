@@ -24,10 +24,14 @@ application as its programming language.
 ## Preview of application on user side
 
 ![alt text](https://raw.githubusercontent.com/bot-alert/Digital-Canteen/master/image%20for%20readme.md/user1.jpg)
+![alt text](https://raw.githubusercontent.com/bot-alert/Digital-Canteen/master/image%20for%20readme.md/user2.jpg)
+
 
 ## Preview of application on admin side
 
-![alt text](https://raw.githubusercontent.com/bot-alert/Digital-Canteen/master/image%20for%20readme.md/ADMIN.jpg)
+![alt text](https://raw.githubusercontent.com/bot-alert/Digital-Canteen/master/image%20for%20readme.md/admin1.jpg)
+![alt text](https://raw.githubusercontent.com/bot-alert/Digital-Canteen/master/image%20for%20readme.md/admin2.jpg)
+
 
 ## Password for admin pages
 
