@@ -23,7 +23,7 @@ application as its programming language.
 
 ## Preview of application on user side
 
-![alt text](https://raw.githubusercontent.com/bot-alert/Digital-Canteen/master/image%20for%20readme.md/user.jpg)
+![alt text](https://raw.githubusercontent.com/bot-alert/Digital-Canteen/master/image%20for%20readme.md/user1.jpg)
 
 ## Preview of application on admin side
 
